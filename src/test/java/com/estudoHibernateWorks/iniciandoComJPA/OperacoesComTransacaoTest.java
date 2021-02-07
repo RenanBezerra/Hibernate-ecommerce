@@ -11,6 +11,44 @@ import com.estudoHibernateWorks.model.Produto;
 public class OperacoesComTransacaoTest extends EntityManagerTest {
 
 	@Test
+	public void mostrarDiferencaPersistMerge() {
+		Produto produtoPersist = new Produto();
+		
+		produtoPersist.setId(5);
+		produtoPersist.setNome("Smartphone One Plus");
+		produtoPersist.setDescricao("O processador mais rapido");
+		produtoPersist.setPreco(new BigDecimal(2000));
+		
+		entityManager.getTransaction().begin();
+		entityManager.persist(produtoPersist);
+		produtoPersist.setNome("Smartphone Two Plus");
+		entityManager.getTransaction().commit();
+		
+		entityManager.clear();
+		
+		Produto produtoVerificacaoPersist = entityManager.find(Produto.class, produtoPersist.getId());
+		Assert.assertNotNull(produtoVerificacaoPersist);
+	
+	
+		Produto produtoMerge = new Produto();
+		
+		produtoMerge.setId(6);
+		produtoMerge.setNome("Smartphone One Plus");
+		produtoMerge.setDescricao("O processador mais rapido");
+		produtoMerge.setPreco(new BigDecimal(2000));
+		
+		entityManager.getTransaction().begin();
+		produtoMerge = entityManager.merge(produtoMerge);
+		produtoMerge.setNome("Smartphone Two Plus");
+		entityManager.getTransaction().commit();
+		
+		entityManager.clear();
+		
+		Produto produtoVerificacaoMerge = entityManager.find(Produto.class, produtoMerge.getId());
+		Assert.assertNotNull(produtoVerificacaoMerge);
+	}
+	
+	@Test
 	public void inserirObjetoComMerge() {
 		Produto produto = new Produto();
 
