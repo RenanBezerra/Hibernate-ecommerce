@@ -11,6 +11,22 @@ import com.estudoHibernateWorks.model.Produto;
 public class OperacoesComTransacaoTest extends EntityManagerTest {
 
 	@Test
+	public void impedirOpercaoComBancoDeDados() {
+		Produto produto = entityManager.find(Produto.class, 1);
+		entityManager.detach(produto);
+		
+		entityManager.getTransaction().begin();
+		produto.setNome("Kindle Paperehite 2° Geração");
+		entityManager.getTransaction().commit();
+		
+		entityManager.clear();
+		
+		Produto produtoVerificacao = entityManager.find(Produto.class, produto.getId());
+		Assert.assertEquals("Kindle", produtoVerificacao.getNome());
+		
+	}
+	
+	@Test
 	public void mostrarDiferencaPersistMerge() {
 		Produto produtoPersist = new Produto();
 		
