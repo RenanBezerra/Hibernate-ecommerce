@@ -1,4 +1,4 @@
-package com.estudoHibernateWorks;
+package com.estudohibernateworkstest;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;

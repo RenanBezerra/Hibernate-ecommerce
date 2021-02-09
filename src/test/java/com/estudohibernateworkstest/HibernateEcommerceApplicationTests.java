@@ -1,4 +1,4 @@
-package com.estudoHibernateWorks;
+package com.estudohibernateworkstest;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

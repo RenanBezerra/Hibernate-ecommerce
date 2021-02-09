@@ -1,4 +1,4 @@
-package com.estudoHibernateWorks.model;
+package com.estudohibernateworks.model;
 
 public enum StatusPedido {
 

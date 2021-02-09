@@ -1,9 +1,10 @@
-package com.estudoHibernateWorks.model;
+package com.estudohibernateworks.model;
 
 import java.math.BigDecimal;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -11,6 +12,7 @@ import lombok.EqualsAndHashCode;
 @Data
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Entity
+@Table(name = "produto")
 public class Produto {
 	
 	@EqualsAndHashCode.Include

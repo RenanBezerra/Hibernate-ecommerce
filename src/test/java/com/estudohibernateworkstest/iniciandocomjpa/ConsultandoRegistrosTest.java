@@ -1,10 +1,10 @@
-package com.estudoHibernateWorks.iniciandoComJPA;
+package com.estudohibernateworkstest.iniciandocomjpa;
 
 import org.junit.Assert;
 import org.junit.Test;
 
-import com.estudoHibernateWorks.EntityManagerTest;
-import com.estudoHibernateWorks.model.Produto;
+import com.estudohibernateworks.model.Produto;
+import com.estudohibernateworkstest.EntityManagerTest;
 
 public class ConsultandoRegistrosTest extends EntityManagerTest {
 
