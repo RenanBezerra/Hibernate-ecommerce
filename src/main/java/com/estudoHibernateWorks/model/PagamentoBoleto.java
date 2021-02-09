@@ -9,14 +9,16 @@ import lombok.EqualsAndHashCode;
 @Data
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Entity
-public class Cliente {
+public class PagamentoBoleto {
 
 	@EqualsAndHashCode.Include
 	@Id
 	private Integer id;
 
-	private String nome;
+	private Integer pedidoId;
+
+	private StatusPagamento status;
 	
-	private SexoCliente sexo;
+	private String codigoBarras;
 
 }

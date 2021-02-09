@@ -22,7 +22,7 @@ public class OperacoesComTransacaoTest extends EntityManagerTest {
 		entityManager.clear();
 		
 		Produto produtoVerificacao = entityManager.find(Produto.class, produto.getId());
-		Assert.assertEquals("Kindle", produtoVerificacao.getNome());
+		Assert.assertNotEquals("Kindle", produtoVerificacao.getNome());
 		
 	}
 	

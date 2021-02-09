@@ -1,5 +1,7 @@
 package com.estudoHibernateWorks.model;
 
+import java.sql.Date;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
@@ -9,14 +11,16 @@ import lombok.EqualsAndHashCode;
 @Data
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Entity
-public class Cliente {
+public class NotaFiscal {
 
 	@EqualsAndHashCode.Include
 	@Id
 	private Integer id;
 
-	private String nome;
+	private Integer pedidoId;
 	
-	private SexoCliente sexo;
+	private String xml;
+	
+	private Date dataEmissao;
 
 }

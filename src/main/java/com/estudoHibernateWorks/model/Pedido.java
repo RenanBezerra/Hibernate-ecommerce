@@ -1,5 +1,8 @@
 package com.estudoHibernateWorks.model;
 
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
@@ -9,14 +12,20 @@ import lombok.EqualsAndHashCode;
 @Data
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Entity
-public class Cliente {
+public class Pedido {
 
 	@EqualsAndHashCode.Include
 	@Id
 	private Integer id;
 
-	private String nome;
+	private LocalDateTime dataPedido;
+
+	private LocalDateTime dataConclusao;
 	
-	private SexoCliente sexo;
+	private Integer notaFiscalId;
+	
+	private BigDecimal total;
+	
+	private StatusPedido status;
 
 }
