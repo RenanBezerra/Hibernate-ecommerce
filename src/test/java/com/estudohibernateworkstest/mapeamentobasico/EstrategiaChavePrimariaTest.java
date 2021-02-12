@@ -9,7 +9,7 @@ import com.estudohibernateworkstest.EntityManagerTest;
 public class EstrategiaChavePrimariaTest extends EntityManagerTest{
 
 	@Test
-	public void testarEstrategiaAuto() {
+	public void testarEstrategiaChave() {
 		
 		Categoria categoria = new Categoria();
 		categoria.setNome("Eletronicos");
