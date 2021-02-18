@@ -3,33 +3,26 @@ package com.estudohibernateworkstest.relacionamentos;
 import org.junit.Assert;
 import org.junit.Test;
 
-import com.estudohibernateworks.model.Categoria;
+import com.estudohibernateworks.model.Pedido;
 import com.estudohibernateworkstest.EntityManagerTest;
 
 public class AutoRelacionamentoTest extends EntityManagerTest {
 
 	@Test
-	public void verificarRelacionamento() {
-		Categoria categoriaPai = new Categoria();
-		categoriaPai.setNome("Eletronicos");
+	public void removerEntidadeRelacionada() {
+		Pedido pedido = entityManager.find(Pedido.class, 1);
 
-		Categoria categoria = new Categoria();
-		categoria.setNome("Celulares");
-		categoria.setCategoriaPai(categoriaPai);
+		Assert.assertFalse(pedido.getItens().isEmpty());
 
 		entityManager.getTransaction().begin();
-		entityManager.persist(categoriaPai);
-		entityManager.persist(categoria);
+		pedido.getItens().forEach(i -> entityManager.remove(i));
+		entityManager.remove(pedido);
 		entityManager.getTransaction().commit();
 
 		entityManager.clear();
 
-		Categoria categoriaVerificacao = entityManager.find(Categoria.class, categoria.getId());
-		Assert.assertNotNull(categoriaVerificacao.getCategoriaPai());
-
-		Categoria categoriaPaiVerificacao = entityManager.find(Categoria.class, categoriaPai.getId());
-		Assert.assertFalse(categoriaPaiVerificacao.getCategorias().isEmpty());
-
+		Pedido pedidoVerificacao = entityManager.find(Pedido.class, 1);
+		Assert.assertNull(pedidoVerificacao);
 	}
 
 }
