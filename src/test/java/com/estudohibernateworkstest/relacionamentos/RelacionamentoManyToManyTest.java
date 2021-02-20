@@ -18,7 +18,7 @@ public class RelacionamentoManyToManyTest extends EntityManagerTest {
 
 		entityManager.getTransaction().begin();
 		// categoria.setProduto(Arrays.asList(produto));
-		produto.setCategorias(Arrays.asList(categoria));
+		produto.setCategorias(Arrays.asList(categoria));// a insercao deve ser feita na dona do relacionamento
 		entityManager.getTransaction().commit();
 
 		entityManager.clear();
