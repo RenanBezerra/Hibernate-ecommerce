@@ -1,11 +1,15 @@
 package com.estudohibernateworks.model;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 import lombok.Data;
@@ -28,4 +32,9 @@ public class Produto {
 	
 	private BigDecimal preco;
 
+	@ManyToMany
+	@JoinTable(name = "produto_categoria",
+			joinColumns = @JoinColumn(name = "produto_id"),
+			inverseJoinColumns = @JoinColumn(name = "categoria_id"))
+	private List<Categoria> categorias;
 }
