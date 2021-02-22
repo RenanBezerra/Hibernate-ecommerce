@@ -6,6 +6,7 @@ import java.time.LocalDateTime;
 import org.junit.Assert;
 import org.junit.Test;
 
+import com.estudohibernateworks.model.Cliente;
 import com.estudohibernateworks.model.EnderecoEntregaPedido;
 import com.estudohibernateworks.model.Pedido;
 import com.estudohibernateworks.model.StatusPedido;
@@ -15,6 +16,8 @@ public class MapeamentoObjetoEmbutidoTest extends EntityManagerTest {
 
 	@Test
 	public void analisarMapeamentoObjetoEmbutido() {
+		Cliente cliente = entityManager.find(Cliente.class, 1);
+		
 		EnderecoEntregaPedido endereco = new EnderecoEntregaPedido();
 		endereco.setCep("00000-00");
 		endereco.setLogradouro("Rua das Laranjeiras");
@@ -29,6 +32,7 @@ public class MapeamentoObjetoEmbutidoTest extends EntityManagerTest {
 		pedido.setStatus(StatusPedido.AGUARDANDO);
 		pedido.setTotal(new BigDecimal(1000));
 		pedido.setEnderecoEntrega(endereco);
+		pedido.setCliente(cliente);
 
 		entityManager.getTransaction().begin();
 		entityManager.persist(pedido);
