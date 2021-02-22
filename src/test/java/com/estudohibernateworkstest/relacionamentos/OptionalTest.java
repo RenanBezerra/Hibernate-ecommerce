@@ -5,7 +5,7 @@ import org.junit.Test;
 import com.estudohibernateworks.model.Pedido;
 import com.estudohibernateworkstest.EntityManagerTest;
 
-public class EagerELazyTest extends EntityManagerTest {
+public class OptionalTest extends EntityManagerTest {
 
 	@Test
 	public void verificarComportamento() {

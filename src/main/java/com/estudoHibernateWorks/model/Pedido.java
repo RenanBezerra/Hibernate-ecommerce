@@ -9,7 +9,6 @@ import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -32,34 +31,34 @@ public class Pedido {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	
+
 //	@Column(name = "cliente_id")
 //	private Integer clienteId;
-	
-	@ManyToOne(fetch = FetchType.LAZY)
+
+	@ManyToOne(optional = false)
 	@JoinColumn(name = "cliente_id")
 	private Cliente cliente;
 
-	@OneToMany(mappedBy = "pedido", fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "pedido")
 	private List<ItemPedido> itens;
-	
+
 	@Column(name = "data_pedido")
 	private LocalDateTime dataPedido;
 
 	@Column(name = "data_conclusao")
 	private LocalDateTime dataConclusao;
-	
+
 	@OneToOne(mappedBy = "pedido")
 	private NotaFiscal notaFiscal;
-	
+
 	private BigDecimal total;
-	
+
 	@Enumerated(EnumType.STRING)
 	private StatusPedido status;
-	
+
 	@OneToOne(mappedBy = "pedido")
 	private PagamentoCartao pagamento;
-	
+
 	@Embedded
 	private EnderecoEntregaPedido enderecoEntrega;
 

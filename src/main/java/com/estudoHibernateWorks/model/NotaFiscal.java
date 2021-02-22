@@ -1,6 +1,5 @@
 package com.estudohibernateworks.model;
 
-
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -9,7 +8,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -27,14 +25,15 @@ public class NotaFiscal {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 
-	@OneToOne
+	@OneToOne(optional = false)
 	@JoinColumn(name = "pedido_id")
-	//@JoinTable(name = "pedido_nota_fiscal", joinColumns = @JoinColumn(name = "nota_fiscal_id", unique = true),
-		//		inverseJoinColumns = @JoinColumn(name  = "pedido_id", unique = true))
+	// @JoinTable(name = "pedido_nota_fiscal", joinColumns = @JoinColumn(name =
+	// "nota_fiscal_id", unique = true),
+	// inverseJoinColumns = @JoinColumn(name = "pedido_id", unique = true))
 	private Pedido pedido;
-	
+
 	private String xml;
-	
+
 	@Column(name = "data_emissao")
 	private Date dataEmissao;
 
