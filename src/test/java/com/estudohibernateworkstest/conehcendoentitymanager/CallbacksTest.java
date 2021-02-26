@@ -1,7 +1,4 @@
-package com.estudohibernateworkstest.relacionamentos;
-
-import java.math.BigDecimal;
-import java.time.LocalDateTime;
+package com.estudohibernateworkstest.conehcendoentitymanager;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -11,27 +8,31 @@ import com.estudohibernateworks.model.Pedido;
 import com.estudohibernateworks.model.StatusPedido;
 import com.estudohibernateworkstest.EntityManagerTest;
 
-public class RelacionamentoOneToManyTest extends EntityManagerTest {
+public class CallbacksTest extends EntityManagerTest {
 
 	@Test
-	public void verificarRelacionamento() {
+	public void acionarCallbacks() {
 		Cliente cliente = entityManager.find(Cliente.class, 1);
 
 		Pedido pedido = new Pedido();
-		pedido.setStatus(StatusPedido.AGUARDANDO);
-		pedido.setDataCriacao(LocalDateTime.now());
-		pedido.setTotal(BigDecimal.TEN);
 
 		pedido.setCliente(cliente);
+		pedido.setStatus(StatusPedido.AGUARDANDO);
 
 		entityManager.getTransaction().begin();
+
 		entityManager.persist(pedido);
+		entityManager.flush();
+
+		pedido.setStatus(StatusPedido.PAGO);
+
 		entityManager.getTransaction().commit();
 
 		entityManager.clear();
 
-		Cliente clienteVerificacao = entityManager.find(Cliente.class, cliente.getId());
-		Assert.assertFalse(clienteVerificacao.getPedidos().isEmpty());
+		Pedido pedidoVerificacao = entityManager.find(Pedido.class, pedido.getId());
+		Assert.assertNotNull(pedidoVerificacao.getDataCriacao());
+		Assert.assertNotNull(pedidoVerificacao.getDataUltimaAtualizacao());
 	}
 
 }
