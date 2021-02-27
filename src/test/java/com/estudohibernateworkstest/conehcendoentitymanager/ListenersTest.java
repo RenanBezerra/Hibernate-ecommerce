@@ -5,10 +5,17 @@ import org.junit.Test;
 
 import com.estudohibernateworks.model.Cliente;
 import com.estudohibernateworks.model.Pedido;
+import com.estudohibernateworks.model.Produto;
 import com.estudohibernateworks.model.StatusPedido;
 import com.estudohibernateworkstest.EntityManagerTest;
 
-public class CallbacksTest extends EntityManagerTest {
+public class ListenersTest extends EntityManagerTest {
+
+	@Test
+	public void carregarEntidades() {
+		Produto produto = entityManager.find(Produto.class, 1);
+		Pedido pedido = entityManager.find(Pedido.class, 1);
+	}
 
 	@Test
 	public void acionarCallbacks() {
