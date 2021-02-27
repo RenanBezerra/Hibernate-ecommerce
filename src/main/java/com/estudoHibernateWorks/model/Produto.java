@@ -1,8 +1,10 @@
 package com.estudohibernateworks.model;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
 import javax.persistence.GeneratedValue;
@@ -31,6 +33,12 @@ public class Produto {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 
+	@Column(name = "data_criacao", updatable = false)
+	private LocalDateTime dataCriacao;
+	
+	@Column(name = "data_ultima_atualizacao", insertable = false)
+	private LocalDateTime dataUltimaAtualizacao;
+	
 	private String nome;
 
 	private String descricao;
