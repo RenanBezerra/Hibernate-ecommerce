@@ -17,6 +17,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.PostLoad;
 import javax.persistence.PostPersist;
 import javax.persistence.PostUpdate;
 import javax.persistence.PrePersist;
@@ -27,10 +28,12 @@ import javax.persistence.Table;
 import com.estudohibernateworks.listener.GenericoListener;
 import com.estudohibernateworks.listener.GerarNotaFiscalListener;
 
-import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
+@Getter
+@Setter
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @EntityListeners({
 	GerarNotaFiscalListener.class,
@@ -116,5 +119,10 @@ public class Pedido {
 	@PreRemove
 	private void aoRemover() {
 		System.out.println("Antes de remover Pedido");
+	}
+	
+	@PostLoad
+	public void aoCarregar() {
+		System.out.println("Apos carregar o Pedido");
 	}
 }
