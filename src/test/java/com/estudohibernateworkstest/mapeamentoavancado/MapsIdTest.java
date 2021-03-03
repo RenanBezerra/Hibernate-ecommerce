@@ -17,8 +17,9 @@ import com.estudohibernateworkstest.EntityManagerTest;
 
 public class MapsIdTest extends EntityManagerTest {
 
-	 @Test
+	 	@Test
 	    public void inserirPagamento() {
+	 		entityManager.getTransaction().begin();
 	        Pedido pedido = entityManager.find(Pedido.class, 1);
 
 	        NotaFiscal notaFiscal = new NotaFiscal();
@@ -26,7 +27,6 @@ public class MapsIdTest extends EntityManagerTest {
 	        notaFiscal.setDataEmissao(new Date());
 	        notaFiscal.setXml("<xml/>");
 
-	        entityManager.getTransaction().begin();
 	        entityManager.persist(notaFiscal);
 	        entityManager.getTransaction().commit();
 
