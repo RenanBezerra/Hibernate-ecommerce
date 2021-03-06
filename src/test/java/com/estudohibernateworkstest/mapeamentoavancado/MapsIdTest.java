@@ -25,7 +25,7 @@ public class MapsIdTest extends EntityManagerTest {
 	        NotaFiscal notaFiscal = new NotaFiscal();
 	        notaFiscal.setPedido(pedido);
 	        notaFiscal.setDataEmissao(new Date());
-	        notaFiscal.setXml("<xml/>");
+	        //notaFiscal.setXml(carregarNotaFiscal());
 
 	        entityManager.persist(notaFiscal);
 	        entityManager.getTransaction().commit();
