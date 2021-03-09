@@ -18,9 +18,11 @@ import javax.persistence.Table;
 
 import com.estudohibernateworks.listener.GenericoListener;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
+@Getter
+@Setter
 @EntityListeners({ GenericoListener.class })
 @Entity
 @Table(name = "produto")

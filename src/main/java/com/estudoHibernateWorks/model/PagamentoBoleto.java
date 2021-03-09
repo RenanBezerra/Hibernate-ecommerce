@@ -1,14 +1,17 @@
 package com.estudohibernateworks.model;
 
 import javax.persistence.Column;
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
-import javax.persistence.Table;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
+@Getter
+@Setter
+@DiscriminatorValue("boleto")
 @Entity
-@Table(name = "pagamento_boleto")
+//@Table(name = "pagamento_boleto")
 public class PagamentoBoleto extends Pagamento {
 
 	@Column(name = "codigo_barras")

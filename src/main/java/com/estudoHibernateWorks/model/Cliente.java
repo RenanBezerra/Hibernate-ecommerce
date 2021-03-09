@@ -19,14 +19,15 @@ import javax.persistence.SecondaryTable;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
-@SecondaryTable(name = "cliente_detalhe",pkJoinColumns = @PrimaryKeyJoinColumn(name = "cliente_id"))
+@Getter
+@Setter
+@SecondaryTable(name = "cliente_detalhe", pkJoinColumns = @PrimaryKeyJoinColumn(name = "cliente_id"))
 @Entity
 @Table(name = "cliente")
-public class Cliente extends EntidadeBaseInteger{
-
+public class Cliente extends EntidadeBaseInteger {
 
 	private String nome;
 
@@ -42,7 +43,7 @@ public class Cliente extends EntidadeBaseInteger{
 	@Column(table = "cliente_detalhe")
 	@Enumerated(EnumType.STRING)
 	private SexoCliente sexo;
-	
+
 	@Column(name = "data_nascimento", table = "cliente_detalhe")
 	private LocalDate dataNascimento;
 
