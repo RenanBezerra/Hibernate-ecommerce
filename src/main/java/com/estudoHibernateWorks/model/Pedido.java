@@ -10,9 +10,6 @@ import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -28,25 +25,15 @@ import javax.persistence.Table;
 import com.estudohibernateworks.listener.GenericoListener;
 import com.estudohibernateworks.listener.GerarNotaFiscalListener;
 
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
-@EqualsAndHashCode(onlyExplicitlyIncluded = true)
-@EntityListeners({
-	GerarNotaFiscalListener.class,
-	GenericoListener.class
-})
+@EntityListeners({ GerarNotaFiscalListener.class, GenericoListener.class })
 @Entity
 @Table(name = "pedido")
-public class Pedido {
-
-	@EqualsAndHashCode.Include
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id;
+public class Pedido extends EntidadeBaseInteger {
 
 //	@Column(name = "cliente_id")
 //	private Integer clienteId;
@@ -81,11 +68,10 @@ public class Pedido {
 	@Embedded
 	private EnderecoEntregaPedido enderecoEntrega;
 
-	
 	public boolean isPago() {
 		return StatusPedido.PAGO.equals(status);
 	}
-	
+
 //	@PrePersist
 //	@PreUpdate
 	public void calcularTotal() {
@@ -120,7 +106,7 @@ public class Pedido {
 	private void aoRemover() {
 		System.out.println("Antes de remover Pedido");
 	}
-	
+
 	@PostLoad
 	public void aoCarregar() {
 		System.out.println("Apos carregar o Pedido");
