@@ -31,13 +31,6 @@ public class HerancaTest extends EntityManagerTest {
 	}
 
 	@Test
-	public void buscarPagamento() {
-		List<Pagamento> pagamentos = entityManager.createQuery("select p from Pagamento p").getResultList();
-
-		Assert.assertFalse(pagamentos.isEmpty());
-	}
-
-	@Test
 	public void incluirPagamentoPedido() {
 		Pedido pedido = entityManager.find(Pedido.class, 1);
 
@@ -49,10 +42,17 @@ public class HerancaTest extends EntityManagerTest {
 		entityManager.getTransaction().begin();
 		entityManager.persist(pagamentoCartao);
 		entityManager.getTransaction().commit();
-		
+
 		entityManager.clear();
 
 		Pedido pedidoVerificacao = entityManager.find(Pedido.class, pedido.getId());
 		Assert.assertNotNull(pedidoVerificacao.getPagamento());
+	}
+
+	@Test
+	public void buscarPagamento() {
+		List<Pagamento> pagamentos = entityManager.createQuery("select p from Pagamento p").getResultList();
+
+		Assert.assertFalse(pagamentos.isEmpty());
 	}
 }
