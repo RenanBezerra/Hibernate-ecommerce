@@ -5,6 +5,7 @@ import org.junit.Test;
 
 import com.estudohibernateworks.model.Cliente;
 import com.estudohibernateworks.model.Produto;
+import com.estudohibernateworks.model.SexoCliente;
 import com.estudohibernateworkstest.EntityManagerTest;
 
 public class PrimeiroCrudTest extends EntityManagerTest {
@@ -15,6 +16,8 @@ public class PrimeiroCrudTest extends EntityManagerTest {
 
 		//cliente.setId(3);
 		cliente.setNome("José Lucas");
+		cliente.setCpf("333");
+		cliente.setSexo(SexoCliente.MASCULINO);
 
 		entityManager.getTransaction().begin();
 		entityManager.persist(cliente);

@@ -4,6 +4,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import com.estudohibernateworks.model.Categoria;
+import com.estudohibernateworks.model.Pedido;
 import com.estudohibernateworkstest.EntityManagerTest;
 
 public class RemovendoEntidadeReferenciadasTest extends EntityManagerTest {
@@ -11,10 +12,10 @@ public class RemovendoEntidadeReferenciadasTest extends EntityManagerTest {
 	@Test
 	public void verificarRelacionamento() {
 		Categoria categoriaPai = new Categoria();
-		categoriaPai.setNome("Eletronicos");
+		categoriaPai.setNome("Luta");
 
 		Categoria categoria = new Categoria();
-		categoria.setNome("Celulares");
+		categoria.setNome("Kimono");
 		categoria.setCategoriaPai(categoriaPai);
 
 		entityManager.getTransaction().begin();
@@ -31,5 +32,23 @@ public class RemovendoEntidadeReferenciadasTest extends EntityManagerTest {
 		Assert.assertFalse(categoriaPaiVerificacao.getCategorias().isEmpty());
 
 	}
+	
+	@Test
+	public void removerEntidadeRelacionada() {
+		Pedido pedido = entityManager.find(Pedido.class, 1);
+
+		Assert.assertFalse(pedido.getItens().isEmpty());
+
+		entityManager.getTransaction().begin();
+		pedido.getItens().forEach(i -> entityManager.remove(i));
+		entityManager.remove(pedido);
+		entityManager.getTransaction().commit();
+
+		entityManager.clear();
+
+		Pedido pedidoVerificacao = entityManager.find(Pedido.class, 1);
+		Assert.assertNull(pedidoVerificacao);
+	}
+
 
 }

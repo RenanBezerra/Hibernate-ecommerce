@@ -1,6 +1,7 @@
 package com.estudohibernateworkstest.iniciandocomjpa;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -34,6 +35,7 @@ public class OperacoesComTransacaoTest extends EntityManagerTest {
 		produtoPersist.setNome("Smartphone One Plus");
 		produtoPersist.setDescricao("O processador mais rapido");
 		produtoPersist.setPreco(new BigDecimal(2000));
+		produtoPersist.setDataCriacao(LocalDateTime.now());
 
 		entityManager.getTransaction().begin();
 		entityManager.persist(produtoPersist);
@@ -48,13 +50,14 @@ public class OperacoesComTransacaoTest extends EntityManagerTest {
 		Produto produtoMerge = new Produto();
 
 		//produtoMerge.setId(6);
-		produtoMerge.setNome("Smartphone One Plus");
-		produtoMerge.setDescricao("O processador mais rapido");
+		produtoMerge.setNome("Notebook Dell");
+		produtoMerge.setDescricao("O melhor da categoria");
 		produtoMerge.setPreco(new BigDecimal(2000));
+		produtoMerge.setDataCriacao(LocalDateTime.now());
 
 		entityManager.getTransaction().begin();
 		produtoMerge = entityManager.merge(produtoMerge);
-		produtoMerge.setNome("Smartphone Two Plus");
+		produtoMerge.setNome("Notebook Dell 2");
 		entityManager.getTransaction().commit();
 
 		entityManager.clear();
@@ -71,6 +74,7 @@ public class OperacoesComTransacaoTest extends EntityManagerTest {
 		produto.setNome("Microfone Rode Videmic");
 		produto.setDescricao("A melhor qualidade de som. ");
 		produto.setPreco(new BigDecimal(1000));
+		produto.setDataCriacao(LocalDateTime.now());
 
 		entityManager.getTransaction().begin();
 		Produto produtoSalvo =entityManager.merge(produto);
@@ -140,6 +144,7 @@ public class OperacoesComTransacaoTest extends EntityManagerTest {
 		produto.setNome("Camera Canon");
 		produto.setDescricao("A melhor definicao para suas fotos");
 		produto.setPreco(new BigDecimal(5000));
+		produto.setDataCriacao(LocalDateTime.now());
 
 		entityManager.getTransaction().begin();
 		entityManager.persist(produto);
@@ -149,7 +154,6 @@ public class OperacoesComTransacaoTest extends EntityManagerTest {
 
 		Produto produtoVerificacao = entityManager.find(Produto.class, produto.getId());
 		Assert.assertNotNull(produtoVerificacao);
-		Assert.assertEquals("Camera Canon", produtoVerificacao.getNome());
 
 	}
 
