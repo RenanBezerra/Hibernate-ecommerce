@@ -5,8 +5,8 @@ import java.time.LocalDate;
 import org.junit.Assert;
 import org.junit.Test;
 
-import com.estudohibernateworks.model.Cliente;
-import com.estudohibernateworks.model.SexoCliente;
+import com.estudo.hibernate.works.model.Cliente;
+import com.estudo.hibernate.works.model.SexoCliente;
 import com.estudohibernateworkstest.EntityManagerTest;
 
 public class SecondaryTableTest extends EntityManagerTest {

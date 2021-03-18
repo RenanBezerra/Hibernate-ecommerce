@@ -1,4 +1,4 @@
-package com.estudohibernateworks.model;
+package com.estudo.hibernate.works.model;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -22,8 +22,8 @@ import javax.persistence.PreRemove;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 
-import com.estudohibernateworks.listener.GenericoListener;
-import com.estudohibernateworks.listener.GerarNotaFiscalListener;
+import com.estudo.hibernate.works.listener.GenericoListener;
+import com.estudo.hibernate.works.listener.GerarNotaFiscalListener;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -57,7 +57,7 @@ public class Pedido extends EntidadeBaseInteger {
 	@OneToOne(mappedBy = "pedido")
 	private NotaFiscal notaFiscal;
 
-	@Column(precision = 19,scale = 2, nullable = false)
+	@Column(precision = 19, scale = 2, nullable = false)
 	private BigDecimal total;
 
 	@Column(length = 30, nullable = false)

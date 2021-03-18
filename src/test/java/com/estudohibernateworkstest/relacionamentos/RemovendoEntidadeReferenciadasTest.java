@@ -3,8 +3,8 @@ package com.estudohibernateworkstest.relacionamentos;
 import org.junit.Assert;
 import org.junit.Test;
 
-import com.estudohibernateworks.model.Categoria;
-import com.estudohibernateworks.model.Pedido;
+import com.estudo.hibernate.works.model.Categoria;
+import com.estudo.hibernate.works.model.Pedido;
 import com.estudohibernateworkstest.EntityManagerTest;
 
 public class RemovendoEntidadeReferenciadasTest extends EntityManagerTest {
@@ -32,7 +32,7 @@ public class RemovendoEntidadeReferenciadasTest extends EntityManagerTest {
 		Assert.assertFalse(categoriaPaiVerificacao.getCategorias().isEmpty());
 
 	}
-	
+
 	@Test
 	public void removerEntidadeRelacionada() {
 		Pedido pedido = entityManager.find(Pedido.class, 1);
@@ -49,6 +49,5 @@ public class RemovendoEntidadeReferenciadasTest extends EntityManagerTest {
 		Pedido pedidoVerificacao = entityManager.find(Pedido.class, 1);
 		Assert.assertNull(pedidoVerificacao);
 	}
-
 
 }

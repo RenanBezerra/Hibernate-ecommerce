@@ -1,5 +1,4 @@
-package com.estudohibernateworks;
-
+package com.estudo.hibernate.works;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

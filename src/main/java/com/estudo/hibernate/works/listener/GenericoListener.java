@@ -1,4 +1,4 @@
-package com.estudohibernateworks.listener;
+package com.estudo.hibernate.works.listener;
 
 import javax.persistence.PostLoad;
 

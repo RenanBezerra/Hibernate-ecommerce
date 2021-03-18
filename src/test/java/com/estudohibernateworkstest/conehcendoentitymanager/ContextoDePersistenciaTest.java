@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 
 import org.junit.Test;
 
-import com.estudohibernateworks.model.Produto;
+import com.estudo.hibernate.works.model.Produto;
 import com.estudohibernateworkstest.EntityManagerTest;
 
 public class ContextoDePersistenciaTest extends EntityManagerTest {

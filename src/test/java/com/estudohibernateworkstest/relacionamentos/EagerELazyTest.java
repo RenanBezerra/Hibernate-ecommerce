@@ -2,7 +2,7 @@ package com.estudohibernateworkstest.relacionamentos;
 
 import org.junit.Test;
 
-import com.estudohibernateworks.model.Pedido;
+import com.estudo.hibernate.works.model.Pedido;
 import com.estudohibernateworkstest.EntityManagerTest;
 
 public class EagerELazyTest extends EntityManagerTest {

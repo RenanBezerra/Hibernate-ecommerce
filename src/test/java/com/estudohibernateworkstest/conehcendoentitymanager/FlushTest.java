@@ -2,8 +2,8 @@ package com.estudohibernateworkstest.conehcendoentitymanager;
 
 import org.junit.Test;
 
-import com.estudohibernateworks.model.Pedido;
-import com.estudohibernateworks.model.StatusPedido;
+import com.estudo.hibernate.works.model.Pedido;
+import com.estudo.hibernate.works.model.StatusPedido;
 import com.estudohibernateworkstest.EntityManagerTest;
 
 public class FlushTest extends EntityManagerTest {

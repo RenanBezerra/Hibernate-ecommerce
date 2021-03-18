@@ -1,4 +1,4 @@
-package com.estudohibernateworks.model;
+package com.estudo.hibernate.works.model;
 
 import java.time.LocalDate;
 import java.util.List;

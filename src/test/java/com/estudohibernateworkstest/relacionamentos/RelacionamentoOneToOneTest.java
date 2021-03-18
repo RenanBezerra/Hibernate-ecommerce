@@ -5,10 +5,10 @@ import java.util.Date;
 import org.junit.Assert;
 import org.junit.Test;
 
-import com.estudohibernateworks.model.NotaFiscal;
-import com.estudohibernateworks.model.PagamentoCartao;
-import com.estudohibernateworks.model.Pedido;
-import com.estudohibernateworks.model.StatusPagamento;
+import com.estudo.hibernate.works.model.NotaFiscal;
+import com.estudo.hibernate.works.model.PagamentoCartao;
+import com.estudo.hibernate.works.model.Pedido;
+import com.estudo.hibernate.works.model.StatusPagamento;
 import com.estudohibernateworkstest.EntityManagerTest;
 
 public class RelacionamentoOneToOneTest extends EntityManagerTest {

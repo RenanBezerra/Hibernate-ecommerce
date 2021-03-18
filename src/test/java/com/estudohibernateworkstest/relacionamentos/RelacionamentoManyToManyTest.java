@@ -5,8 +5,8 @@ import java.util.Arrays;
 import org.junit.Assert;
 import org.junit.Test;
 
-import com.estudohibernateworks.model.Categoria;
-import com.estudohibernateworks.model.Produto;
+import com.estudo.hibernate.works.model.Categoria;
+import com.estudo.hibernate.works.model.Produto;
 import com.estudohibernateworkstest.EntityManagerTest;
 
 public class RelacionamentoManyToManyTest extends EntityManagerTest {

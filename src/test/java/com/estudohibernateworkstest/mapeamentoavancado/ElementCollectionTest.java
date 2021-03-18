@@ -6,9 +6,9 @@ import java.util.Collections;
 import org.junit.Assert;
 import org.junit.Test;
 
-import com.estudohibernateworks.model.Atributo;
-import com.estudohibernateworks.model.Cliente;
-import com.estudohibernateworks.model.Produto;
+import com.estudo.hibernate.works.model.Atributo;
+import com.estudo.hibernate.works.model.Cliente;
+import com.estudo.hibernate.works.model.Produto;
 import com.estudohibernateworkstest.EntityManagerTest;
 
 public class ElementCollectionTest extends EntityManagerTest {
@@ -43,18 +43,18 @@ public class ElementCollectionTest extends EntityManagerTest {
 		Assert.assertFalse(produtoVerificacao.getAtributos().isEmpty());
 
 	}
-	
+
 	@Test
 	public void aplicarContato() {
 		entityManager.getTransaction().begin();
-		
+
 		Cliente cliente = entityManager.find(Cliente.class, 1);
 		cliente.setContatos(Collections.singletonMap("email", "fernando@email.com"));
-		
+
 		entityManager.getTransaction().commit();
-		
+
 		entityManager.clear();
-		
+
 		Cliente clienteVerificacao = entityManager.find(Cliente.class, cliente.getId());
 		Assert.assertEquals("fernando@email.com", clienteVerificacao.getContatos().get("email"));
 	}

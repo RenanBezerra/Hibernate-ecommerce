@@ -5,12 +5,12 @@ import java.util.List;
 import org.junit.Assert;
 import org.junit.Test;
 
-import com.estudohibernateworks.model.Cliente;
-import com.estudohibernateworks.model.Pagamento;
-import com.estudohibernateworks.model.PagamentoCartao;
-import com.estudohibernateworks.model.Pedido;
-import com.estudohibernateworks.model.SexoCliente;
-import com.estudohibernateworks.model.StatusPagamento;
+import com.estudo.hibernate.works.model.Cliente;
+import com.estudo.hibernate.works.model.Pagamento;
+import com.estudo.hibernate.works.model.PagamentoCartao;
+import com.estudo.hibernate.works.model.Pedido;
+import com.estudo.hibernate.works.model.SexoCliente;
+import com.estudo.hibernate.works.model.StatusPagamento;
 import com.estudohibernateworkstest.EntityManagerTest;
 
 public class HerancaTest extends EntityManagerTest {

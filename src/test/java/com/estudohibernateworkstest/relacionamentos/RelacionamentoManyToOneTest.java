@@ -6,12 +6,12 @@ import java.time.LocalDateTime;
 import org.junit.Assert;
 import org.junit.Test;
 
-import com.estudohibernateworks.model.Cliente;
-import com.estudohibernateworks.model.ItemPedido;
-import com.estudohibernateworks.model.ItemPedidoId;
-import com.estudohibernateworks.model.Pedido;
-import com.estudohibernateworks.model.Produto;
-import com.estudohibernateworks.model.StatusPedido;
+import com.estudo.hibernate.works.model.Cliente;
+import com.estudo.hibernate.works.model.ItemPedido;
+import com.estudo.hibernate.works.model.ItemPedidoId;
+import com.estudo.hibernate.works.model.Pedido;
+import com.estudo.hibernate.works.model.Produto;
+import com.estudo.hibernate.works.model.StatusPedido;
 import com.estudohibernateworkstest.EntityManagerTest;
 
 public class RelacionamentoManyToOneTest extends EntityManagerTest {
@@ -49,12 +49,10 @@ public class RelacionamentoManyToOneTest extends EntityManagerTest {
 		pedido.setTotal(BigDecimal.TEN);
 		pedido.setCliente(cliente);
 
-		
-
 		ItemPedido itemPedido = new ItemPedido();
 //		itemPedido.setPedidoId(pedido.getId()); @idClass
 //		itemPedido.setProdutoId(produto.getId());
-		//itemPedido.setId(new ItemPedidoId(pedido.getId(), produto.getId()));
+		// itemPedido.setId(new ItemPedidoId(pedido.getId(), produto.getId()));
 		itemPedido.setId(new ItemPedidoId());
 		itemPedido.setPrecoProduto(produto.getPreco());
 		itemPedido.setQuantidade(1);
@@ -67,7 +65,8 @@ public class RelacionamentoManyToOneTest extends EntityManagerTest {
 
 		entityManager.clear();
 
-		ItemPedido itemPedidoVerificacao = entityManager.find(ItemPedido.class, new ItemPedidoId(pedido.getId(),produto.getId()));
+		ItemPedido itemPedidoVerificacao = entityManager.find(ItemPedido.class,
+				new ItemPedidoId(pedido.getId(), produto.getId()));
 		Assert.assertNotNull(itemPedidoVerificacao.getPedido());
 		Assert.assertNotNull(itemPedidoVerificacao.getProduto());
 	}
@@ -84,7 +83,6 @@ public class RelacionamentoManyToOneTest extends EntityManagerTest {
 		pedido.setCliente(cliente);
 
 		entityManager.getTransaction().begin();
-		
 
 		ItemPedido itemPedido = new ItemPedido();
 //		itemPedido.setPedidoId(pedido.getId());

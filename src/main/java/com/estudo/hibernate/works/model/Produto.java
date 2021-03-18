@@ -1,4 +1,4 @@
-package com.estudohibernateworks.model;
+package com.estudo.hibernate.works.model;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -18,7 +18,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
-import com.estudohibernateworks.listener.GenericoListener;
+import com.estudo.hibernate.works.listener.GenericoListener;
 
 import lombok.Getter;
 import lombok.Setter;

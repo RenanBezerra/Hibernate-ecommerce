@@ -2,7 +2,7 @@ package com.estudohibernateworkstest.conehcendoentitymanager;
 
 import org.junit.Test;
 
-import com.estudohibernateworks.model.Categoria;
+import com.estudo.hibernate.works.model.Categoria;
 import com.estudohibernateworkstest.EntityManagerTest;
 
 public class EstadosECiclosDeVidaTest extends EntityManagerTest {

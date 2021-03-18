@@ -6,10 +6,10 @@ import java.time.LocalDateTime;
 import org.junit.Assert;
 import org.junit.Test;
 
-import com.estudohibernateworks.model.Cliente;
-import com.estudohibernateworks.model.Pedido;
-import com.estudohibernateworks.model.Produto;
-import com.estudohibernateworks.model.StatusPedido;
+import com.estudo.hibernate.works.model.Cliente;
+import com.estudo.hibernate.works.model.Pedido;
+import com.estudo.hibernate.works.model.Produto;
+import com.estudo.hibernate.works.model.StatusPedido;
 import com.estudohibernateworkstest.EntityManagerTest;
 
 public class ListenersTest extends EntityManagerTest {

@@ -5,12 +5,12 @@ import java.time.LocalDateTime;
 import org.junit.Assert;
 import org.junit.Test;
 
-import com.estudohibernateworks.model.Cliente;
-import com.estudohibernateworks.model.ItemPedido;
-import com.estudohibernateworks.model.ItemPedidoId;
-import com.estudohibernateworks.model.Pedido;
-import com.estudohibernateworks.model.Produto;
-import com.estudohibernateworks.model.StatusPedido;
+import com.estudo.hibernate.works.model.Cliente;
+import com.estudo.hibernate.works.model.ItemPedido;
+import com.estudo.hibernate.works.model.ItemPedidoId;
+import com.estudo.hibernate.works.model.Pedido;
+import com.estudo.hibernate.works.model.Produto;
+import com.estudo.hibernate.works.model.StatusPedido;
 import com.estudohibernateworkstest.EntityManagerTest;
 
 public class ChaveCompostaTest extends EntityManagerTest {
@@ -29,11 +29,10 @@ public class ChaveCompostaTest extends EntityManagerTest {
 		pedido.setStatus(StatusPedido.AGUARDANDO);
 		pedido.setTotal(produto.getPreco());
 
-
 		ItemPedido itemPedido = new ItemPedido();
 //		itemPedido.setPedidoId(pedido.getId()); //@IdClass
 //		itemPedido.setProdutoId(produto.getId());
-		//itemPedido.setId(new ItemPedidoId(pedido.getId(), produto.getId()));
+		// itemPedido.setId(new ItemPedidoId(pedido.getId(), produto.getId()));
 		itemPedido.setId(new ItemPedidoId());
 		itemPedido.setPedido(pedido);
 		itemPedido.setProduto(produto);

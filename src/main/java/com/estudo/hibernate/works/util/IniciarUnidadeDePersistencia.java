@@ -1,10 +1,10 @@
-package com.estudohibernateworks.util;
+package com.estudo.hibernate.works.util;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
-import com.estudohibernateworks.model.Produto;
+import com.estudo.hibernate.works.model.Produto;
 
 public class IniciarUnidadeDePersistencia {
 

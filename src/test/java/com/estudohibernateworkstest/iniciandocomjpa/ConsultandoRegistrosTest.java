@@ -3,7 +3,7 @@ package com.estudohibernateworkstest.iniciandocomjpa;
 import org.junit.Assert;
 import org.junit.Test;
 
-import com.estudohibernateworks.model.Produto;
+import com.estudo.hibernate.works.model.Produto;
 import com.estudohibernateworkstest.EntityManagerTest;
 
 public class ConsultandoRegistrosTest extends EntityManagerTest {

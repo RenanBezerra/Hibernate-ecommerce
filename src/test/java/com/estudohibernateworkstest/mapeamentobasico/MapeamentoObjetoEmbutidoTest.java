@@ -6,10 +6,10 @@ import java.time.LocalDateTime;
 import org.junit.Assert;
 import org.junit.Test;
 
-import com.estudohibernateworks.model.Cliente;
-import com.estudohibernateworks.model.EnderecoEntregaPedido;
-import com.estudohibernateworks.model.Pedido;
-import com.estudohibernateworks.model.StatusPedido;
+import com.estudo.hibernate.works.model.Cliente;
+import com.estudo.hibernate.works.model.EnderecoEntregaPedido;
+import com.estudo.hibernate.works.model.Pedido;
+import com.estudo.hibernate.works.model.StatusPedido;
 import com.estudohibernateworkstest.EntityManagerTest;
 
 public class MapeamentoObjetoEmbutidoTest extends EntityManagerTest {
@@ -17,7 +17,7 @@ public class MapeamentoObjetoEmbutidoTest extends EntityManagerTest {
 	@Test
 	public void analisarMapeamentoObjetoEmbutido() {
 		Cliente cliente = entityManager.find(Cliente.class, 1);
-		
+
 		EnderecoEntregaPedido endereco = new EnderecoEntregaPedido();
 		endereco.setCep("00000-00");
 		endereco.setLogradouro("Rua das Laranjeiras");
@@ -27,7 +27,7 @@ public class MapeamentoObjetoEmbutidoTest extends EntityManagerTest {
 		endereco.setEstado("MG");
 
 		Pedido pedido = new Pedido();
-		//pedido.setId(1);
+		// pedido.setId(1);
 		pedido.setDataCriacao(LocalDateTime.now());
 		pedido.setStatus(StatusPedido.AGUARDANDO);
 		pedido.setTotal(new BigDecimal(1000));
@@ -41,7 +41,7 @@ public class MapeamentoObjetoEmbutidoTest extends EntityManagerTest {
 		entityManager.clear();
 
 		Pedido pedidoVerificacao = entityManager.find(Pedido.class, pedido.getId());
-		
+
 		Assert.assertNotNull(pedidoVerificacao);
 		Assert.assertNotNull(pedidoVerificacao.getEnderecoEntrega());
 		Assert.assertNotNull(pedidoVerificacao.getEnderecoEntrega().getCep());

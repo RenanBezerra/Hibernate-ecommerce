@@ -9,9 +9,9 @@ import java.util.Date;
 import org.junit.Assert;
 import org.junit.Test;
 
-import com.estudohibernateworks.model.NotaFiscal;
-import com.estudohibernateworks.model.Pedido;
-import com.estudohibernateworks.model.Produto;
+import com.estudo.hibernate.works.model.NotaFiscal;
+import com.estudo.hibernate.works.model.Pedido;
+import com.estudo.hibernate.works.model.Produto;
 import com.estudohibernateworkstest.EntityManagerTest;
 
 public class SalvandoArquivosTest extends EntityManagerTest {

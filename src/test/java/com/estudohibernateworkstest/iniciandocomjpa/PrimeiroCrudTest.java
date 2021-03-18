@@ -3,9 +3,9 @@ package com.estudohibernateworkstest.iniciandocomjpa;
 import org.junit.Assert;
 import org.junit.Test;
 
-import com.estudohibernateworks.model.Cliente;
-import com.estudohibernateworks.model.Produto;
-import com.estudohibernateworks.model.SexoCliente;
+import com.estudo.hibernate.works.model.Cliente;
+import com.estudo.hibernate.works.model.Produto;
+import com.estudo.hibernate.works.model.SexoCliente;
 import com.estudohibernateworkstest.EntityManagerTest;
 
 public class PrimeiroCrudTest extends EntityManagerTest {
@@ -14,7 +14,7 @@ public class PrimeiroCrudTest extends EntityManagerTest {
 	public void inserirRegistro() {
 		Cliente cliente = new Cliente();
 
-		//cliente.setId(3);
+		// cliente.setId(3);
 		cliente.setNome("José Lucas");
 		cliente.setCpf("333");
 		cliente.setSexo(SexoCliente.MASCULINO);
