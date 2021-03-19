@@ -4,6 +4,7 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.ForeignKey;
 import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.MapsId;
@@ -24,7 +25,7 @@ public class NotaFiscal extends EntidadeBaseInteger {
 	// inverseJoinColumns = @JoinColumn(name = "pedido_id", unique = true))
 	@MapsId
 	@OneToOne(optional = false)
-	@JoinColumn(name = "pedido_id")
+	@JoinColumn(name = "pedido_id", nullable = false, foreignKey = @ForeignKey(name = "fk_nota_fiscal_pedido"))
 	private Pedido pedido;
 
 	@Column(nullable = false)
