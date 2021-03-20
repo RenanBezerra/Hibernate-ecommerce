@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.ForeignKey;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
@@ -24,7 +25,8 @@ public class Categoria extends EntidadeBaseInteger {
 	private String nome;
 
 	@ManyToOne
-	@JoinColumn(name = "categoria_pai_id")
+	@JoinColumn(name = "categoria_pai_id",
+			foreignKey = @ForeignKey(name = "fk_categoria_categoriapai"))
 	private Categoria categoriaPai;
 
 	@OneToMany(mappedBy = "categoriaPai")
