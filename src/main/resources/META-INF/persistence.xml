@@ -11,6 +11,7 @@
             <property name="javax.persistence.jdbc.password" value="ProgramadorPleno10" />
             <property name="javax.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver" />
 
+		<!-- comentarios gerando arquivos não recomendado em produção ###tirar###-->
             <property name="javax.persistence.schema-generation.database.action" 
 			value="drop-and-create"/>
 
