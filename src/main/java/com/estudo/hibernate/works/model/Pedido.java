@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
@@ -42,7 +43,7 @@ public class Pedido extends EntidadeBaseInteger {
 			foreignKey = @ForeignKey(name = "fk_pedido_cliente"))
 	private Cliente cliente;
 
-	@OneToMany(mappedBy = "pedido")
+	@OneToMany(mappedBy = "pedido", cascade = CascadeType.REFRESH)
 	private List<ItemPedido> itens;
 
 	@Column(name = "data_criacao", updatable = false, nullable = false)
