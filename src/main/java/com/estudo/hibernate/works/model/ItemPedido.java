@@ -27,7 +27,8 @@ public class ItemPedido {
 
 	@MapsId("pedidoId")
 	@ManyToOne(optional = false)
-	@JoinColumn(name = "pedido_id", nullable = false, foreignKey = @ForeignKey(name = "fk_item_pedido_pedido"))
+	@JoinColumn(name = "pedido_id", nullable = false,
+		foreignKey = @ForeignKey(name = "fk_item_pedido_pedido"))
 	private Pedido pedido;
 
 	@MapsId("produtoId")
