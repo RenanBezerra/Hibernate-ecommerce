@@ -2,6 +2,7 @@ package com.estudo.hibernate.works.model;
 
 import java.math.BigDecimal;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
@@ -26,7 +27,7 @@ public class ItemPedido {
 	private ItemPedidoId id;
 
 	@MapsId("pedidoId")
-	@ManyToOne(optional = false)
+	@ManyToOne(optional = false, cascade = CascadeType.MERGE)
 	@JoinColumn(name = "pedido_id", nullable = false,
 		foreignKey = @ForeignKey(name = "fk_item_pedido_pedido"))
 	private Pedido pedido;
