@@ -2,7 +2,6 @@ package com.estudo.hibernate.works.model;
 
 import java.math.BigDecimal;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
@@ -28,8 +27,7 @@ public class ItemPedido {
 
 	@MapsId("pedidoId")
 	@ManyToOne(optional = false)
-	@JoinColumn(name = "pedido_id", nullable = false,
-		foreignKey = @ForeignKey(name = "fk_item_pedido_pedido"))
+	@JoinColumn(name = "pedido_id", nullable = false, foreignKey = @ForeignKey(name = "fk_item_pedido_pedido"))
 	private Pedido pedido;
 
 	@MapsId("produtoId")
@@ -37,7 +35,7 @@ public class ItemPedido {
 	@JoinColumn(name = "produto_id", nullable = false, foreignKey = @ForeignKey(name = "fk_item_pedido_produto"))
 	private Produto produto;
 
-	@Column(name = "preco_produto",nullable = false)
+	@Column(name = "preco_produto", nullable = false)
 	private BigDecimal precoProduto;
 
 	@Column(nullable = false)

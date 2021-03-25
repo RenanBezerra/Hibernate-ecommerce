@@ -18,7 +18,7 @@ import com.estudohibernateworkstest.EntityManagerTest;
 
 public class CascadeTypeMergeTest extends EntityManagerTest{
 
-	@Test
+	//@Test
 	public void atualizarProdutoComCategoria() {
 		Produto produto = new Produto();
 		produto.setId(1);
