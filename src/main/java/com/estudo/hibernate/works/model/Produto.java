@@ -4,7 +4,6 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.CollectionTable;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
@@ -52,23 +51,18 @@ public class Produto extends EntidadeBaseInteger {
 	private byte[] foto;
 
 	@ManyToMany
-	@JoinTable(name = "produto_categoria", joinColumns = @JoinColumn(name = "produto_id",nullable = false,
-						foreignKey = @ForeignKey(name = "fk_produto_categoria_produto")),
-						inverseJoinColumns = @JoinColumn(name = "categoria_id", nullable = false,
-								foreignKey = @ForeignKey(name = "fk_produto_categoria_categoria")))
+	@JoinTable(name = "produto_categoria", joinColumns = @JoinColumn(name = "produto_id", nullable = false, foreignKey = @ForeignKey(name = "fk_produto_categoria_produto")), inverseJoinColumns = @JoinColumn(name = "categoria_id", nullable = false, foreignKey = @ForeignKey(name = "fk_produto_categoria_categoria")))
 	private List<Categoria> categorias;
 
 	@OneToOne(mappedBy = "produto")
 	private Estoque estoque;
 
 	@ElementCollection
-	@CollectionTable(name = "produto_tag", joinColumns = @JoinColumn(name = "produto_id", nullable = false,
-					foreignKey = @ForeignKey(name = "fk_produto_tag_produto")))
+	@CollectionTable(name = "produto_tag", joinColumns = @JoinColumn(name = "produto_id", nullable = false, foreignKey = @ForeignKey(name = "fk_produto_tag_produto")))
 	@Column(name = "tag", length = 50, nullable = false)
 	private List<String> tags;
 
 	@ElementCollection
-	@CollectionTable(name = "produto_atributo", joinColumns = @JoinColumn(name = "produto_id",nullable = false,
-					foreignKey = @ForeignKey(name = "fk_produto_atributo_produto")))
+	@CollectionTable(name = "produto_atributo", joinColumns = @JoinColumn(name = "produto_id", nullable = false, foreignKey = @ForeignKey(name = "fk_produto_atributo_produto")))
 	private List<Atributo> atributos;
 }
