@@ -16,6 +16,27 @@ import com.estudohibernateworkstest.EntityManagerTest;
 public class ExpressoesCondicionaisTest extends EntityManagerTest {
 
 	@Test
+	public void usarExpressaoDiferenteComParametro() {
+		String jpql = "select p from Produto p where p.preco <> :value";
+		
+		TypedQuery<Produto> typedQuery= entityManager.createQuery(jpql, Produto.class);
+		typedQuery.setParameter("value", new BigDecimal(100));
+		
+		List<Produto> lista = typedQuery.getResultList();
+		Assert.assertFalse(lista.isEmpty());
+	}
+	
+	@Test
+	public void usarExpressaoDiferente() {
+		String jpql = "select p from Produto p where p.preco <> 100";
+		
+		TypedQuery<Produto> typedQuery= entityManager.createQuery(jpql, Produto.class);
+		
+		List<Produto> lista = typedQuery.getResultList();
+		Assert.assertFalse(lista.isEmpty());
+	}
+	
+	@Test
 	public void usarBetweenData() {
 		String jpql = "select p from Pedido p " + "where p.dataCriacao between :dataInicial and :dataFinal";
 
