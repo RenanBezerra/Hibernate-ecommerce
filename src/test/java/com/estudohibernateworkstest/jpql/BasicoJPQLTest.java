@@ -16,6 +16,18 @@ import com.estudohibernateworkstest.EntityManagerTest;
 public class BasicoJPQLTest extends EntityManagerTest {
 
 	@Test
+	public void ordenarResultados() {
+		String jpql = "select c from Cliente c order by c.nome desc";
+
+		TypedQuery<Cliente> typedQuery = entityManager.createQuery(jpql, Cliente.class);
+
+		List<Cliente> lista = typedQuery.getResultList();
+		Assert.assertFalse(lista.isEmpty());
+
+		lista.forEach(c -> System.out.println(c.getId() + ", " + c.getNome()));
+	}
+
+	@Test
 	public void projetarNoDTO() {
 		String jpql = "select new com.estudo.hibernate.works.dto.ProdutoDTO(id,nome) from Produto";
 
