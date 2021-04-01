@@ -9,10 +9,26 @@ import org.junit.Test;
 
 import com.estudohibernateworkstest.EntityManagerTest;
 
-public class FuncoesStringsTest extends EntityManagerTest{
+public class FuncoesTest extends EntityManagerTest{
 
 	@Test
-	public void aplicarFuncao() {
+	public void aplicarFuncaoData() {
+		// TimeZone.setDefault(TimeZone.getTimeZone("UTC"));  codigo para alterar a data conforme o banco anotar em uma classe com @postCoonstructor
+		
+		String jpql = "select current_date, current_time, current_timestamp from Pedido p";
+//		String jpql = "select year(p.dataCriacao), month(p.dataCriacao), day(p.dataCriacao) from Pedido p";
+//		String jpql = "select hour(p.dataCriacao), minute(p.dataCriacao), second(p.dataCriacao) from Pedido p";
+		
+		TypedQuery<Object[]> typedQuery = entityManager.createQuery(jpql, Object[].class);
+		
+		List<Object[]> lista = typedQuery.getResultList();
+		Assert.assertFalse(lista.isEmpty());
+		
+		lista.forEach(arr -> System.out.println("Data: "+arr[0] + " | " + arr[1] + " | " + arr[2]));
+	}
+	
+	@Test
+	public void aplicarFuncaoString() {
 		// concat, length, locale, substring, lower, upper, trim;
 		
 //		String jpql = "select c.nome, concat('Categoria: ', c.nome) from Categoria c ";
