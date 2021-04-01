@@ -7,71 +7,85 @@ import javax.persistence.TypedQuery;
 import org.junit.Assert;
 import org.junit.Test;
 
-import com.estudo.hibernate.works.model.Pedido;
 import com.estudohibernateworkstest.EntityManagerTest;
 
-public class FuncoesTest extends EntityManagerTest{
+public class FuncoesTest extends EntityManagerTest {
+
+	@Test
+	public void aplicarFuncaoAgregacao() {
+//		String jpql = "select avg(p.total) from Pedido p";
+//		String jpql = "select count(p.total) from Pedido p";
+//		String jpql = "select min(p.total) from Pedido p";
+//		String jpql = "select max(p.total) from Pedido p";
+		String jpql = "select sum(p.total) from Pedido p";
+
+		TypedQuery<Number> typedQuery = entityManager.createQuery(jpql, Number.class);
+
+		List<Number> lista = typedQuery.getResultList();
+		Assert.assertFalse(lista.isEmpty());
+
+		lista.forEach(obj -> System.out.println("funcoes agregacao: " + obj));
+	}
 
 	@Test
 	public void aplicarFuncaoNativas() {
 		String jpql = "select function('dayname', p.dataCriacao) from Pedido p "
 				+ "where function('acima_media_faturamento', p.total) = 1";
-		
+
 		TypedQuery<String> typedQuery = entityManager.createQuery(jpql, String.class);
-		
+
 		List<String> lista = typedQuery.getResultList();
 		Assert.assertFalse(lista.isEmpty());
-		
-		lista.forEach(obj -> System.out.println("funcoes nativas: "+ obj));
+
+		lista.forEach(obj -> System.out.println("funcoes nativas: " + obj));
 	}
-	
+
 	@Test
 	public void aplicarFuncaoColecao() {
 		String jpql = "select size(p.itens) from Pedido p where size(p.itens) > 1";
-		
+
 		TypedQuery<Integer> typedQuery = entityManager.createQuery(jpql, Integer.class);
-		
+
 		List<Integer> lista = typedQuery.getResultList();
 		Assert.assertFalse(lista.isEmpty());
-		
-		lista.forEach( size -> System.out.println("funcao colecao : " +size));
+
+		lista.forEach(size -> System.out.println("funcao colecao : " + size));
 	}
-	
+
 	@Test
 	public void aplicarFuncaoNumero() {
 //		String jpql = "select abs(-10), mod(3,2), sqrt(9) from Pedido";
-		String jpql = "select abs(p.total), mod(p.id,2), sqrt(p.total) from Pedido p "
-				+ "where abs(p.total) > 1000";
-		
+		String jpql = "select abs(p.total), mod(p.id,2), sqrt(p.total) from Pedido p " + "where abs(p.total) > 1000";
+
 		TypedQuery<Object[]> typedQuery = entityManager.createQuery(jpql, Object[].class);
-		
+
 		List<Object[]> lista = typedQuery.getResultList();
 		Assert.assertFalse(lista.isEmpty());
-		
+
 		lista.forEach(arr -> System.out.println("Funcoes numeros : " + arr[0] + " | " + arr[1] + " | " + arr[2]));
 	}
-	
-	
+
 	@Test
 	public void aplicarFuncaoData() {
-		// TimeZone.setDefault(TimeZone.getTimeZone("UTC"));  codigo para alterar a data conforme o banco anotar em uma classe com @postCoonstructor
-		
+		// TimeZone.setDefault(TimeZone.getTimeZone("UTC")); codigo para alterar a data
+		// conforme o banco anotar em uma classe com @postCoonstructor
+
 		String jpql = "select current_date, current_time, current_timestamp from Pedido p";
 //		String jpql = "select year(p.dataCriacao), month(p.dataCriacao), day(p.dataCriacao) from Pedido p";
 //		String jpql = "select hour(p.dataCriacao), minute(p.dataCriacao), second(p.dataCriacao) from Pedido p";
-		
+
 		TypedQuery<Object[]> typedQuery = entityManager.createQuery(jpql, Object[].class);
-		
+
 		List<Object[]> lista = typedQuery.getResultList();
 		Assert.assertFalse(lista.isEmpty());
-		
-		lista.forEach(arr -> System.out.println("Data: "+arr[0] + " | " + arr[1] + " | " + arr[2]));
+
+		lista.forEach(arr -> System.out.println("Data: " + arr[0] + " | " + arr[1] + " | " + arr[2]));
 	}
-	
+
 	@Test
 	public void aplicarFuncaoString() {
 		// concat, length, locale, substring, lower, upper, trim;
-		
+
 //		String jpql = "select c.nome, concat('Categoria: ', c.nome) from Categoria c ";
 //		String jpql = "select c.nome, length(c.nome) from Categoria c ";
 //		String jpql = "select c.nome, locate('a', c.nome) from Categoria c ";
@@ -81,13 +95,12 @@ public class FuncoesTest extends EntityManagerTest{
 //		String jpql = "select c.nome, trim(c.nome) from Categoria c ";
 //		String jpql = "select c.nome, length(c.nome) from Categoria c where length(c.nome) > 10 ";
 		String jpql = "select c.nome, length(c.nome) from Categoria c where substring(c.nome,1,1) = 'N' ";
-		
-		
+
 		TypedQuery<Object[]> typedQuery = entityManager.createQuery(jpql, Object[].class);
-		
+
 		List<Object[]> lista = typedQuery.getResultList();
 		Assert.assertFalse(lista.isEmpty());
-		
+
 		lista.forEach(arr -> System.out.println(arr[0] + " - " + arr[1]));
 	}
 }
