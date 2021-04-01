@@ -12,6 +12,21 @@ import com.estudohibernateworkstest.EntityManagerTest;
 public class FuncoesTest extends EntityManagerTest{
 
 	@Test
+	public void aplicarFuncaoNumero() {
+//		String jpql = "select abs(-10), mod(3,2), sqrt(9) from Pedido";
+		String jpql = "select abs(p.total), mod(p.id,2), sqrt(p.total) from Pedido p"
+				+ "where abs(p.total) > 1000";
+		
+		TypedQuery<Object[]> typedQuery = entityManager.createQuery(jpql, Object[].class);
+		
+		List<Object[]> lista = typedQuery.getResultList();
+		Assert.assertFalse(lista.isEmpty());
+		
+		lista.forEach(arr -> System.out.println("Funcoes numeros : " + arr[0] + " | " + arr[1] + " | " + arr[2]));
+	}
+	
+	
+	@Test
 	public void aplicarFuncaoData() {
 		// TimeZone.setDefault(TimeZone.getTimeZone("UTC"));  codigo para alterar a data conforme o banco anotar em uma classe com @postCoonstructor
 		
