@@ -16,6 +16,32 @@ import com.estudohibernateworkstest.EntityManagerTest;
 public class ExpressoesCondicionaisTest extends EntityManagerTest {
 
 	@Test
+	public void usarExpressaoCase() {
+//		String jpql = "select p.id, "
+//				+ "	case p.status "
+//				+ "		when 'PAGO' then 'Esta pago' "
+//				+ "		when 'CANCELADO' then 'Foi cancelado' "
+//				+ "		else 'Esta aguardando' "
+//				+ "end "
+//				+ " from Pedido p";
+		
+		String jpql = "select p.id, "
+				+ "case type (p.pagamento) "
+				+ "		when PagamentoBoleto then 'Pago com boleto' "
+				+ "		when PagamentoCartao then 'Pago com cartao' "
+				+ "		else 'Nao pago ainda.' "
+				+ "end "
+				+ "	from Pedido p";
+		
+		TypedQuery<Object[]> typedQuery = entityManager.createQuery(jpql, Object[].class);
+		
+		List<Object[]> lista = typedQuery.getResultList();
+		Assert.assertFalse(lista.isEmpty());
+		
+		lista.forEach(arr -> System.out.println("Expressao Case: "+ arr[0]+", "+ arr[1]));
+	}
+	
+	@Test
 	public void usarExpressaoDiferenteComParametro() {
 		String jpql = "select p from Produto p where p.preco <> :value";
 		
@@ -69,7 +95,7 @@ public class ExpressoesCondicionaisTest extends EntityManagerTest {
 		typedQuery.setParameter("data", LocalDateTime.now().minusDays(2));
 
 		List<Pedido> lista = typedQuery.getResultList();
-		Assert.assertFalse(lista.isEmpty());
+		Assert.assertTrue(lista.isEmpty());
 
 	}
 
@@ -103,7 +129,7 @@ public class ExpressoesCondicionaisTest extends EntityManagerTest {
 		TypedQuery<Object[]> typedQuery = entityManager.createQuery(jpql, Object[].class);
 
 		List<Object[]> lista = typedQuery.getResultList();
-		Assert.assertFalse(lista.isEmpty());
+		Assert.assertTrue(lista.isEmpty());
 	}
 
 	@Test
