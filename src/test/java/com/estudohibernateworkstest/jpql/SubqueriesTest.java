@@ -12,8 +12,24 @@ import com.estudo.hibernate.works.model.Pedido;
 import com.estudo.hibernate.works.model.Produto;
 import com.estudohibernateworkstest.EntityManagerTest;
 
+import lombok.val;
+
 public class SubqueriesTest extends EntityManagerTest{
 
+	@Test
+	public void pesquisarComInExercicio() {
+		String jpql = "select p from Pedido p where p.id in "
+				+ " (select p2.id from ItemPedido i2 "
+				+ "  join i2.pedido p2 join i2.produto pro2 join pro2.categorias c2 where c2.id = 2)";
+		
+		TypedQuery<Pedido> typedQuery = entityManager.createQuery(jpql, Pedido.class);
+		
+		List<Pedido> lista = typedQuery.getResultList();
+		Assert.assertFalse(lista.isEmpty());
+		
+		lista.forEach(obj -> System.out.println("ID: " + obj.getId()));
+	}
+	
 	@Test
 	public void pesquisarComExists() {
 		String jpql = "select p from Produto p where exists "
