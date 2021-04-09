@@ -15,6 +15,27 @@ import com.estudohibernateworkstest.EntityManagerTest;
 public class SubqueriesTest extends EntityManagerTest{
 
 	@Test
+	public void pesquisarComAny() {
+		
+		// Podemos usar o any e o some
+		
+		
+		//Todos os produtos que já foram vendidos por um preco diferente do atual 
+		String jpql = "select p from Produto p "
+				+ " where p.preco <> ANY (select precoProduto from ItemPedido where produto = p)";
+		
+		// Todos os produtos que ja foram vendidos, pelo menos, uma vez pelo preco atual.
+//		String jpql = "select p from Produto p "
+//				+ " where p.preco = ANY (select precoProduto from ItemPedido where produto = p)";
+		
+		TypedQuery<Produto> typedQuery = entityManager.createQuery(jpql, Produto.class);
+		
+		List<Produto> lista = typedQuery.getResultList();
+		Assert.assertFalse(lista.isEmpty());
+		
+		lista.forEach(obj -> System.out.println("ID: " + obj.getId()));
+	}
+	@Test
 	public void pesquisarComAll() {
 		// Todos os produtos nao foram vendidos mais depois que encareceram
 		String jpql = "select p from Produto p where "
