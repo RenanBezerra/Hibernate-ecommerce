@@ -13,6 +13,16 @@ import com.estudohibernateworkstest.EntityManagerTest;
 public class NamedQueryTest extends EntityManagerTest {
 
 	@Test
+	public void executarConsulta() {
+		TypedQuery<Produto> typedQuery = entityManager
+				.createNamedQuery("Produto.listarPorCategoria", Produto.class);
+		typedQuery.setParameter("categoria", 2);
+		List<Produto> lista = typedQuery.getResultList();
+		
+		Assert.assertFalse(lista.isEmpty());
+	}
+	
+	//@Test
 	public void executarConsultaDinamica() {
 		Produto consultado = new Produto();
 		consultado.setNome("Câmera GoPro");
