@@ -1,6 +1,7 @@
 package com.estudohibernateworkstest.criteria;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
@@ -12,10 +13,25 @@ import org.junit.Test;
 
 import com.estudo.hibernate.works.model.Cliente;
 import com.estudo.hibernate.works.model.Pedido;
+import com.estudo.hibernate.works.model.Produto;
 import com.estudohibernateworkstest.EntityManagerTest;
 
 public class BasicoCriteriaTest extends EntityManagerTest{
 
+	@Test
+	public void retornarTodosOsProdutos() {
+		CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+		CriteriaQuery<Produto> criteriaQuery = criteriaBuilder.createQuery(Produto.class);
+		Root<Produto> root = criteriaQuery.from(Produto.class);
+		
+		criteriaQuery.select(root);
+		
+		TypedQuery<Produto> typedQuery = entityManager.createQuery(criteriaQuery);
+		List<Produto> produtos = typedQuery.getResultList();
+		Assert.assertFalse(produtos.isEmpty());
+		produtos.forEach(p -> System.out.println(p.getNome()));
+	}
+	
 	@Test
 	public void selecionarUmAtributoParaRetornoBigDecimal() {
 		CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
