@@ -19,6 +19,20 @@ import com.estudohibernateworkstest.EntityManagerTest;
 public class BasicoCriteriaTest extends EntityManagerTest{
 
 	@Test
+	public void projetarOResultado() {
+		CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+		CriteriaQuery<Object[]> criteriaQuery = criteriaBuilder.createQuery(Object[].class);
+		Root<Produto> root = criteriaQuery.from(Produto.class);
+		
+		criteriaQuery.multiselect(root.get("id"), root.get("nome"));
+		
+		TypedQuery<Object[]> typedQuery = entityManager.createQuery(criteriaQuery);
+		List<Object[]> lista = typedQuery.getResultList();
+		Assert.assertFalse(lista.isEmpty());
+		
+		lista.forEach(arr -> System.out.println("ID: " + arr[0] + ", Nome: " + arr[1]));
+	}
+	@Test
 	public void retornarTodosOsProdutos() {
 		CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
 		CriteriaQuery<Produto> criteriaQuery = criteriaBuilder.createQuery(Produto.class);
@@ -29,7 +43,7 @@ public class BasicoCriteriaTest extends EntityManagerTest{
 		TypedQuery<Produto> typedQuery = entityManager.createQuery(criteriaQuery);
 		List<Produto> produtos = typedQuery.getResultList();
 		Assert.assertFalse(produtos.isEmpty());
-		produtos.forEach(p -> System.out.println(p.getNome()));
+		produtos.forEach(p -> System.out.println(p.getId() + ", "+ p.getNome()));
 	}
 	
 	@Test
