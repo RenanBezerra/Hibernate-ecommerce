@@ -12,6 +12,7 @@ import javax.persistence.criteria.Root;
 import org.junit.Assert;
 import org.junit.Test;
 
+import com.estudo.hibernate.works.dto.ProdutoDTO;
 import com.estudo.hibernate.works.model.Cliente;
 import com.estudo.hibernate.works.model.Pedido;
 import com.estudo.hibernate.works.model.Produto;
@@ -19,6 +20,21 @@ import com.estudohibernateworkstest.EntityManagerTest;
 
 public class BasicoCriteriaTest extends EntityManagerTest{
 
+	@Test
+	public void projetarOResultadpDTO() {
+		CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+		CriteriaQuery<ProdutoDTO> criteriaQuery = criteriaBuilder.createQuery(ProdutoDTO.class);
+		Root<Produto> root = criteriaQuery.from(Produto.class);
+		
+		criteriaQuery.select(criteriaBuilder.construct(ProdutoDTO.class, root.get("id"), root.get("nome")));
+		
+		TypedQuery<ProdutoDTO> typedQuery = entityManager.createQuery(criteriaQuery);
+		List<ProdutoDTO> lista = typedQuery.getResultList();
+		Assert.assertFalse(lista.isEmpty());
+		
+		lista.forEach(dto -> System.out.println("ID: "+ dto.getId() + ", Nome: " + dto.getNome()));
+	}
+	
 	@Test
 	public void projetarOResultadoTuple() {
 		CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
