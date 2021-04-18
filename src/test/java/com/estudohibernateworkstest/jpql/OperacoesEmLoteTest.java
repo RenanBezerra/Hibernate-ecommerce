@@ -54,7 +54,7 @@ public class OperacoesEmLoteTest extends EntityManagerTest {
 		int contadorInsercoes = 0;
 
 		for (String linha : reader.lines().collect(Collectors.toList())) {
-			if (linha.isBlank()) {
+			if (linha.isEmpty()) {
 				continue;
 			}
 
