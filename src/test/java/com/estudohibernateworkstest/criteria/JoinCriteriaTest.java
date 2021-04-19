@@ -9,6 +9,7 @@ import javax.persistence.criteria.Join;
 import javax.persistence.criteria.JoinType;
 import javax.persistence.criteria.Root;
 
+import org.hibernate.engine.transaction.spi.JoinStatus;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -21,6 +22,25 @@ import com.estudohibernateworkstest.EntityManagerTest;
 
 public class JoinCriteriaTest extends EntityManagerTest {
 
+	@Test
+	public void buscarPedidosComProdutoEspecifico() {
+		CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+		CriteriaQuery<Pedido> criteriaQuery = criteriaBuilder.createQuery(Pedido.class);
+		Root<Pedido> root = criteriaQuery.from(Pedido.class);
+		Join<Pedido, ItemPedido> joinPagamento = root.join("itens");
+		//root.fetch("itens",JoinType.LEFT);
+		
+		criteriaQuery.select(root);
+		
+		//criteriaQuery.where(criteriaBuilder.equal(root.get("id"), 1));
+		criteriaQuery.where(criteriaBuilder.equal(joinPagamento.get("produto"),1));
+		
+		TypedQuery<Pedido> typedQuery = entityManager.createQuery(criteriaQuery);
+		List<Pedido> pedidos = typedQuery.getResultList();
+		Assert.assertFalse(pedidos.isEmpty());
+		pedidos.forEach(p -> System.out.println(p.getId()));
+	}
+	
 	@Test
 	public void usarJoinFetch() {
 		CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
