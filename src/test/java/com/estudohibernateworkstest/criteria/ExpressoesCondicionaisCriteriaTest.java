@@ -12,6 +12,8 @@ import org.junit.Test;
 
 import com.estudo.hibernate.works.model.Cliente;
 import com.estudo.hibernate.works.model.Cliente_;
+import com.estudo.hibernate.works.model.Produto;
+import com.estudo.hibernate.works.model.Produto_;
 import com.estudohibernateworkstest.EntityManagerTest;
 
 public class ExpressoesCondicionaisCriteriaTest extends EntityManagerTest {
@@ -28,6 +30,38 @@ public class ExpressoesCondicionaisCriteriaTest extends EntityManagerTest {
 		
 		TypedQuery<Cliente> typedQuery = entityManager.createQuery(criteriaQuery);
 		List<Cliente> lista = typedQuery.getResultList();
+		Assert.assertFalse(lista.isEmpty());
+	}
+	
+	@Test
+	public void usarIsNull() {
+		CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+		CriteriaQuery<Produto> criteriaQuery = criteriaBuilder.createQuery(Produto.class);
+		Root<Produto> root = criteriaQuery.from(Produto.class);
+		
+		criteriaQuery.select(root);
+		
+		criteriaQuery.where(criteriaBuilder.isNull(root.get(Produto_.foto)));
+		//criteriaQuery.where(criteriaBuilder.isNotNull(root.get(Produto_.foto)));
+		//criteriaQuery.where(root.get(Produto_.foto).isNull());
+		
+		TypedQuery<Produto> typedQuery = entityManager.createQuery(criteriaQuery);
+		List<Produto> lista = typedQuery.getResultList();
+		Assert.assertFalse(lista.isEmpty());
+	}
+	
+	@Test
+	public void usarIsEmpty() {
+		CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+		CriteriaQuery<Produto> criteriaQuery = criteriaBuilder.createQuery(Produto.class);
+		Root<Produto> root = criteriaQuery.from(Produto.class);
+		
+		criteriaQuery.select(root);
+		
+		criteriaQuery.where(criteriaBuilder.isNotEmpty(root.get(Produto_.categorias)));
+		
+		TypedQuery<Produto> typedQuery = entityManager.createQuery(criteriaQuery);
+		List<Produto> lista = typedQuery.getResultList();
 		Assert.assertFalse(lista.isEmpty());
 	}
 }
