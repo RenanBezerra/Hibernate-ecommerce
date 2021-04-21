@@ -1,6 +1,7 @@
 package com.estudohibernateworkstest.criteria;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import javax.persistence.TypedQuery;
@@ -13,12 +14,33 @@ import org.junit.Test;
 
 import com.estudo.hibernate.works.model.Cliente;
 import com.estudo.hibernate.works.model.Cliente_;
+import com.estudo.hibernate.works.model.Pedido;
+import com.estudo.hibernate.works.model.Pedido_;
 import com.estudo.hibernate.works.model.Produto;
 import com.estudo.hibernate.works.model.Produto_;
 import com.estudohibernateworkstest.EntityManagerTest;
 
 public class ExpressoesCondicionaisCriteriaTest extends EntityManagerTest {
 
+	@Test
+	public void usarMaiorMenorComDatas() {
+		//todos os pedidos que foram cadastrados nos ultimos 3 dias
+		
+		CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+		CriteriaQuery<Pedido> criteriaQuery = criteriaBuilder.createQuery(Pedido.class);
+		Root<Pedido> root = criteriaQuery.from(Pedido.class);
+		
+		criteriaQuery.select(root);
+		
+		criteriaQuery.where(criteriaBuilder.greaterThan(
+				root.get(Pedido_.DATA_CRIACAO), LocalDateTime.now().minusDays(3)));
+		
+		TypedQuery<Pedido> typedQuery = entityManager.createQuery(criteriaQuery);
+		List<Pedido> lista = typedQuery.getResultList();
+		lista.forEach(p -> System.out.println(p.getId()));
+		Assert.assertFalse(lista.isEmpty());
+	}
+	
 	@Test
 	public void usarMaiorMenor() {
 		CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
