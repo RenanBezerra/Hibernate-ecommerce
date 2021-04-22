@@ -23,6 +23,24 @@ import com.estudohibernateworkstest.EntityManagerTest;
 public class ExpressoesCondicionaisCriteriaTest extends EntityManagerTest {
 
 	@Test
+	public void usarExpressaoDiferente() {
+		CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+		CriteriaQuery<Pedido> criteriaQuery = criteriaBuilder.createQuery(Pedido.class);
+		Root<Pedido> root = criteriaQuery.from(Pedido.class);
+		
+		criteriaQuery.select(root);
+		
+		criteriaQuery.where(criteriaBuilder.notEqual(root.get(Pedido_.total), new BigDecimal(499)));
+		
+		TypedQuery<Pedido> typedQuery = entityManager.createQuery(criteriaQuery);
+		List<Pedido> lista = typedQuery.getResultList();
+		Assert.assertFalse(lista.isEmpty());
+		
+		lista.forEach(p -> System.out.println(
+				"ID: " + p.getId() + ", Total: " + p.getTotal()));
+	}
+	
+	@Test
 	public void usarBetween() {
 		CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
 		CriteriaQuery<Pedido> criteriaQuery = criteriaBuilder.createQuery(Pedido.class);
