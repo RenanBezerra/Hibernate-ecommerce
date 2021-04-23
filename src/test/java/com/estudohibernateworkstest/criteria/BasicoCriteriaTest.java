@@ -14,12 +14,28 @@ import org.junit.Test;
 
 import com.estudo.hibernate.works.dto.ProdutoDTO;
 import com.estudo.hibernate.works.model.Cliente;
+import com.estudo.hibernate.works.model.Cliente_;
 import com.estudo.hibernate.works.model.Pedido;
 import com.estudo.hibernate.works.model.Produto;
 import com.estudohibernateworkstest.EntityManagerTest;
 
 public class BasicoCriteriaTest extends EntityManagerTest{
 
+	@Test
+	public void ordenarResultados() {
+		CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+		CriteriaQuery<Cliente> criteriaQuery = criteriaBuilder.createQuery(Cliente.class);
+		Root<Cliente> root = criteriaQuery.from(Cliente.class);
+		
+		criteriaQuery.orderBy(criteriaBuilder.desc(root.get(Cliente_.nome)));
+		
+		TypedQuery<Cliente> typedQuery = entityManager.createQuery(criteriaQuery);
+		
+		List<Cliente> lista = typedQuery.getResultList();
+		Assert.assertFalse(lista.isEmpty());
+		
+		lista.forEach(c -> System.out.println(c.getId() + ", "+ c.getNome()));
+	}
 	@Test
 	public void projetarOResultadpDTO() {
 		CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
