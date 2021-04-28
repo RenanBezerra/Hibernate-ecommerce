@@ -20,9 +20,34 @@ import com.estudo.hibernate.works.model.Pedido;
 import com.estudo.hibernate.works.model.Pedido_;
 import com.estudo.hibernate.works.model.StatusPedido;
 import com.estudohibernateworkstest.EntityManagerTest;
+import com.mysql.cj.protocol.AbstractProtocol;
 
 public class FuncoesCriteriaTest extends EntityManagerTest {
 
+	@Test
+	public void aplicarFuncaoColecao() {
+		CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+		CriteriaQuery<Object[]> criteriaQuery = criteriaBuilder.createQuery(Object[].class);
+		Root<Pedido> root = criteriaQuery.from(Pedido.class);
+		
+		criteriaQuery.multiselect(
+				root.get(Pedido_.id),
+				criteriaBuilder.size(root.get(Pedido_.itens))
+				);
+		
+		criteriaQuery.where(criteriaBuilder.greaterThan(criteriaBuilder.size(root.get(Pedido_.itens)),1));
+		
+		TypedQuery<Object[]> typedsQuery = entityManager.createQuery(criteriaQuery);
+		
+		List<Object[]> lista = typedsQuery.getResultList();
+		Assert.assertFalse(lista.isEmpty());
+		
+		lista.forEach(arr -> System.out.println(
+				arr[0]
+						+ ", size: " + arr[1]
+				));
+	}
+	
 	@Test
 	public void aplicarFuncaoNumero() {
 		CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
@@ -33,7 +58,7 @@ public class FuncoesCriteriaTest extends EntityManagerTest {
 					root.get(Pedido_.id),
 					criteriaBuilder.abs(criteriaBuilder.prod(root.get(Pedido_.id), -1)),
 					criteriaBuilder.mod(root.get(Pedido_.id), 2),
-					criteriaBuilder.sqrt(root.get(Pedido_.id))
+					criteriaBuilder.sqrt(root.get(Pedido_.total))
 				);
 		
 		criteriaQuery.where(criteriaBuilder.greaterThan(criteriaBuilder.sqrt(root.get(Pedido_.total)), 10.0));
