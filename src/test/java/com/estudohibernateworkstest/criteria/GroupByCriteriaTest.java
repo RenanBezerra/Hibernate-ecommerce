@@ -1,5 +1,6 @@
 package com.estudohibernateworkstest.criteria;
 
+import java.lang.annotation.ElementType;
 import java.util.List;
 
 import javax.persistence.TypedQuery;
@@ -13,14 +14,37 @@ import org.junit.Test;
 
 import com.estudo.hibernate.works.model.Categoria;
 import com.estudo.hibernate.works.model.Categoria_;
+import com.estudo.hibernate.works.model.Cliente;
+import com.estudo.hibernate.works.model.Cliente_;
 import com.estudo.hibernate.works.model.ItemPedido;
 import com.estudo.hibernate.works.model.ItemPedido_;
+import com.estudo.hibernate.works.model.Pedido;
+import com.estudo.hibernate.works.model.Pedido_;
 import com.estudo.hibernate.works.model.Produto;
 import com.estudo.hibernate.works.model.Produto_;
 import com.estudohibernateworkstest.EntityManagerTest;
 
 public class GroupByCriteriaTest extends EntityManagerTest {
 
+	@Test
+	public void agruparResultado03() {
+		// Total de vendas por cliente
+		CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+		CriteriaQuery<Object[]> criteriaQuery = criteriaBuilder.createQuery(Object[].class);
+		Root<ItemPedido> root = criteriaQuery.from(ItemPedido.class);
+		Join<ItemPedido, Pedido> joinPedido = root.join(ItemPedido_.pedido);
+		Join<Pedido, Cliente> joinPedidoCliente = joinPedido.join(Pedido_.cliente);
+		
+		criteriaQuery.multiselect(joinPedidoCliente.get(Cliente_.nome),
+				criteriaBuilder.sum(root.get(ItemPedido_.precoProduto)));
+		criteriaQuery.groupBy(joinPedidoCliente.get(Cliente_.id));
+		
+		TypedQuery<Object[]> typedQuery = entityManager.createQuery(criteriaQuery);
+		List<Object[]> lista = typedQuery.getResultList();
+		
+		lista.forEach(arr -> System.out.println("Nome do cliente: " +arr[0] + ", Sum: " + arr[1]));
+	}
+	
 	@Test
 	public void agruparResultado02() {
 		// Total de vendas por catehoria
