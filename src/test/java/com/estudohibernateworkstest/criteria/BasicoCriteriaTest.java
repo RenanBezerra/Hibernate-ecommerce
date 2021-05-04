@@ -16,11 +16,27 @@ import com.estudo.hibernate.works.dto.ProdutoDTO;
 import com.estudo.hibernate.works.model.Cliente;
 import com.estudo.hibernate.works.model.Cliente_;
 import com.estudo.hibernate.works.model.Pedido;
+import com.estudo.hibernate.works.model.Pedido_;
 import com.estudo.hibernate.works.model.Produto;
 import com.estudohibernateworkstest.EntityManagerTest;
 
 public class BasicoCriteriaTest extends EntityManagerTest{
 
+	@Test
+	public void usarDistinct() {
+		CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+		CriteriaQuery<Pedido> criteriaQuery = criteriaBuilder.createQuery(Pedido.class);
+		Root<Pedido> root = criteriaQuery.from(Pedido.class);
+		root.join(Pedido_.itens);
+		
+		criteriaQuery.select(root);
+		criteriaQuery.distinct(true);
+		
+		TypedQuery<Pedido> typedQuery = entityManager.createQuery(criteriaQuery);
+		List<Pedido> lista = typedQuery.getResultList();
+		
+		lista.forEach(p -> System.out.println("ID: "+ p.getId()));
+	}
 	@Test
 	public void ordenarResultados() {
 		CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
