@@ -12,6 +12,7 @@ import javax.persistence.criteria.Subquery;
 import org.junit.Assert;
 import org.junit.Test;
 
+import com.estudo.hibernate.works.model.Cliente;
 import com.estudo.hibernate.works.model.Pedido;
 import com.estudo.hibernate.works.model.Pedido_;
 import com.estudo.hibernate.works.model.Produto;
@@ -20,6 +21,36 @@ import com.estudohibernateworkstest.EntityManagerTest;
 
 public class SubqueriesCriteriaTest extends EntityManagerTest {
 
+	@Test
+	public void pesquisar03() {
+		// Bons clientes.
+	//	String jpql = "select from Cliente c where "+
+//		" 500 < (select sum(p.total) from Pedido p where p.cliente = c)";
+		
+		CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+		CriteriaQuery<Cliente> criteriaQuery = criteriaBuilder.createQuery(Cliente.class);
+		Root<Cliente> root = criteriaQuery.from(Cliente.class);
+		
+		criteriaQuery.select(root);
+		
+		Subquery<BigDecimal> subquery = criteriaQuery.subquery(BigDecimal.class);
+		Root<Pedido> subqueryRoot = subquery.from(Pedido.class);
+		subquery.select(criteriaBuilder.sum(subqueryRoot.get(Pedido_.total)));
+		subquery.where(criteriaBuilder.equal(
+				root, subqueryRoot.get(Pedido_.cliente)));
+		
+		criteriaQuery.where(criteriaBuilder.greaterThan(subquery, new BigDecimal(1300)));
+		
+		TypedQuery<Cliente> typedQuery = entityManager.createQuery(criteriaQuery);
+		List<Cliente> lista = typedQuery.getResultList();
+		Assert.assertFalse(lista.isEmpty());
+		
+		lista.forEach(obj -> System.out.println(
+				"ID: " + obj.getId() + ", Nome: " + obj.getNome()));
+		
+	
+	}
+	
 	@Test
 	public void pesquisarSubqueries02() {
 		// Todos os pedidos acima da média de vendas
