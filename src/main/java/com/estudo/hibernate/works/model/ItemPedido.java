@@ -5,10 +5,13 @@ import java.math.BigDecimal;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.EntityResult;
 import javax.persistence.ForeignKey;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.MapsId;
+import javax.persistence.SqlResultSetMapping;
+import javax.persistence.SqlResultSetMappings;
 import javax.persistence.Table;
 
 import lombok.EqualsAndHashCode;
@@ -17,6 +20,14 @@ import lombok.Setter;
 
 @Getter
 @Setter
+@SqlResultSetMappings({
+	
+	@SqlResultSetMapping(name = "item_pedido-produto.ItemPedido-Produto",
+			entities = {
+					@EntityResult(entityClass = ItemPedido.class),
+					@EntityResult(entityClass = Produto.class)
+			})
+})
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Entity
 @Table(name = "item_pedido")
