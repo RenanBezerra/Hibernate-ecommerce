@@ -19,6 +19,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
+import javax.persistence.NamedNativeQueries;
+import javax.persistence.NamedNativeQuery;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
@@ -35,6 +37,13 @@ import lombok.Setter;
 
 @Getter
 @Setter
+@NamedNativeQueries({
+	@NamedNativeQuery(name = "produto_loja.listar",
+			query = "select id, nome, descricao, data_criacao, data_ultima_atualizacao, preco, foto "
+					+ " from produto_loja", resultClass = Produto.class),
+	@NamedNativeQuery(name = "ecm_produto.listar",
+			query = "select * from ecm_produto", resultSetMapping = "ecm_produto.Produto")
+})
 @SqlResultSetMappings({
 	@SqlResultSetMapping(name = "produto_loja.Produto",
 			entities = {
