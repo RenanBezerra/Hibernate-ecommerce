@@ -7,12 +7,23 @@ import javax.persistence.Query;
 import org.junit.Test;
 
 import com.estudo.hibernate.works.dto.ProdutoDTO;
+import com.estudo.hibernate.works.model.Categoria;
 import com.estudo.hibernate.works.model.ItemPedido;
 import com.estudo.hibernate.works.model.Produto;
 import com.estudohibernateworkstest.EntityManagerTest;
 
 public class ConsultaNativaTest extends EntityManagerTest {
 
+	@Test
+	public void usarArquivoXML() {
+		Query query = entityManager.createNamedQuery("ecm_categoria.listar");
+		
+		List<Categoria> lista = query.getResultList();
+		
+		lista.stream().forEach(obj -> System.out.println(
+				String.format("Categoria => ID: %s, Nome: %s", obj.getId(), obj.getNome())));
+	}
+	
 	@Test
 	public void usarUmaNamedNativeQuery02() {
 		Query query = entityManager.createNamedQuery("ecm_produto.listar");
