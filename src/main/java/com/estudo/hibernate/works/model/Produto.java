@@ -6,6 +6,8 @@ import java.util.List;
 
 import javax.persistence.CollectionTable;
 import javax.persistence.Column;
+import javax.persistence.ColumnResult;
+import javax.persistence.ConstructorResult;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
@@ -25,6 +27,7 @@ import javax.persistence.SqlResultSetMappings;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
+import com.estudo.hibernate.works.dto.ProdutoDTO;
 import com.estudo.hibernate.works.listener.GenericoListener;
 
 import lombok.Getter;
@@ -46,7 +49,15 @@ import lombok.Setter;
 							@FieldResult(name = "foto",column = "prd_foto"),
 							@FieldResult(name = "dataCriacao", column = "prd_data_criacao"),
 							@FieldResult(name = "dataUltimaAtualizacao", column = "prd_data_ultima_atualizacao")
-					}) })
+					}) }),
+	@SqlResultSetMapping(name = "ecm_produto.ProdutoDTO",
+			classes = {
+					@ConstructorResult(targetClass = ProdutoDTO.class,
+							columns = {
+									@ColumnResult(name = "prd_id", type = Integer.class),
+									@ColumnResult(name = "prd_nome", type = String.class)
+							})
+			})
 				
 		})
 			

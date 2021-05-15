@@ -5,8 +5,8 @@ import java.util.List;
 import javax.persistence.Query;
 
 import org.junit.Test;
-import org.junit.validator.PublicClassValidator;
 
+import com.estudo.hibernate.works.dto.ProdutoDTO;
 import com.estudo.hibernate.works.model.ItemPedido;
 import com.estudo.hibernate.works.model.Produto;
 import com.estudohibernateworkstest.EntityManagerTest;
@@ -14,35 +14,44 @@ import com.estudohibernateworkstest.EntityManagerTest;
 public class ConsultaNativaTest extends EntityManagerTest {
 
 	@Test
+	public void usarColumnResultRetornarDTO() {
+		String sql = "select * from ecm_produto";
+
+		Query query = entityManager.createNativeQuery(sql, "ecm_produto.ProdutoDTO");
+
+		List<ProdutoDTO> lista = query.getResultList();
+
+		lista.stream().forEach(
+				obj -> System.out.println(String.format("ProdutoDTO => %s, Nome: %s ", obj.getId(), obj.getNome())));
+	}
+
+	@Test
 	public void usarFieldResult() {
 		String sql = "select * from ecm_produto";
-		
+
 		Query query = entityManager.createNativeQuery(sql, "ecm_produto.Produto");
-		
+
 		List<Produto> lista = query.getResultList();
-		
-		lista.stream().forEach(obj -> System.out.println(
-				String.format("Produto => ID: %s, Nome: %s",  obj.getId(), obj.getNome())));
+
+		lista.stream().forEach(
+				obj -> System.out.println(String.format("Produto => ID: %s, Nome: %s", obj.getId(), obj.getNome())));
 	}
-	
+
 	@Test
 	public void usarSQLResultSetMapping02() {
 		String sql = "select ip.*, p.* from item_pedido ip join produto p on p.id = ip.produto_id";
-		
-		Query query = entityManager.createNativeQuery(sql,
-				"item_pedido-produto.ItemPedido-Produto");
-		
+
+		Query query = entityManager.createNativeQuery(sql, "item_pedido-produto.ItemPedido-Produto");
+
 		List<Object[]> lista = query.getResultList();
-		
-		lista.stream().forEach(arr -> System.out.println(
-				String.format("Pedido => ID: %s ----Produto => ID: %s, Nome: %s",
-						((ItemPedido) arr[0]).getId().getPedidoId(),
-						((Produto)arr[1]).getId(), ((Produto)arr[1]).getNome())));
-						
-				
+
+		lista.stream()
+				.forEach(arr -> System.out.println(String.format("Pedido => ID: %s ----Produto => ID: %s, Nome: %s",
+						((ItemPedido) arr[0]).getId().getPedidoId(), ((Produto) arr[1]).getId(),
+						((Produto) arr[1]).getNome())));
+
 	}
-	
-	
+
 	@Test
 	public void usarSQLResultSetMapping01() {
 		String sql = "select id, nome, descricao, data_criacao, data_ultima_atualizacao, preco, foto "
