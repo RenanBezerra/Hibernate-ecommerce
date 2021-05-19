@@ -1,14 +1,31 @@
 package com.estudohibernateworkstest.consultasnativas;
 
+import java.util.List;
+
 import javax.persistence.ParameterMode;
 import javax.persistence.StoredProcedureQuery;
 
 import org.junit.Assert;
 import org.junit.Test;
 
+import com.estudo.hibernate.works.model.Cliente;
 import com.estudohibernateworkstest.EntityManagerTest;
 
 public class StoredProceduresTest extends EntityManagerTest {
+
+	@Test
+	public void receberListaDaProcedure() {
+		StoredProcedureQuery storedProcedureQuery = entityManager.createStoredProcedureQuery("compraram_acima_media",
+				Cliente.class);
+
+		storedProcedureQuery.registerStoredProcedureParameter("ano", Integer.class, ParameterMode.IN);
+
+		storedProcedureQuery.setParameter("ano", 2020);
+
+		List<Cliente> lista = storedProcedureQuery.getResultList();
+
+		Assert.assertFalse(lista.isEmpty());
+	}
 
 	@Test
 	public void usarParametrosIneOut() {
