@@ -1,5 +1,6 @@
 package com.estudo.hibernate.works.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ForeignKey;
 import javax.persistence.JoinColumn;
@@ -25,6 +26,7 @@ public class Estoque extends EntidadeBaseInteger {
 
 	@PositiveOrZero
 	@NotNull
+	@Column(nullable = false)
 	private Integer quantidade;
 
 }
