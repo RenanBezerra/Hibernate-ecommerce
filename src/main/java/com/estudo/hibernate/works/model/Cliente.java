@@ -24,6 +24,7 @@ import javax.persistence.StoredProcedureParameter;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.persistence.UniqueConstraint;
+import javax.validation.constraints.NotBlank;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -44,6 +45,7 @@ import lombok.Setter;
 				@Index(name = "idx_nome", columnList = "nome") })
 public class Cliente extends EntidadeBaseInteger {
 
+	@NotBlank
 	@Column(length = 100, nullable = false)
 	private String nome;
 
