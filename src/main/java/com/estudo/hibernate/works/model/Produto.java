@@ -8,6 +8,7 @@ import javax.persistence.CollectionTable;
 import javax.persistence.Column;
 import javax.persistence.ColumnResult;
 import javax.persistence.ConstructorResult;
+import javax.persistence.Convert;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
@@ -35,6 +36,7 @@ import javax.validation.constraints.Positive;
 
 import com.estudo.hibernate.works.dto.ProdutoDTO;
 import com.estudo.hibernate.works.listener.GenericoListener;
+import com.estudo.hibernate.works.model.converter.BooleanToSiimNaoConverter;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -107,6 +109,11 @@ public class Produto extends EntidadeBaseInteger {
 
 	@Lob
 	private byte[] foto;
+	
+	@Convert(converter = BooleanToSiimNaoConverter.class)
+	@NotNull
+	@Column(length = 3 , nullable = false)
+	private Boolean ativo = Boolean.FALSE;
 
 	@ManyToMany
 	@JoinTable(name = "produto_categoria", joinColumns = @JoinColumn(name = "produto_id", nullable = false, foreignKey = @ForeignKey(name = "fk_produto_categoria_produto")), inverseJoinColumns = @JoinColumn(name = "categoria_id", nullable = false, foreignKey = @ForeignKey(name = "fk_produto_categoria_categoria")))
