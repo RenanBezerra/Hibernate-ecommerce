@@ -10,6 +10,7 @@ import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.ForeignKey;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -22,14 +23,21 @@ import javax.persistence.PrePersist;
 import javax.persistence.PreRemove;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.PastOrPresent;
 import javax.validation.constraints.Positive;
 
+import org.hibernate.annotations.LazyToOne;
+import org.hibernate.annotations.LazyToOneOption;
+import org.hibernate.engine.spi.PersistentAttributeInterceptable;
+import org.hibernate.engine.spi.PersistentAttributeInterceptor;
+
 import com.estudo.hibernate.works.listener.GenericoListener;
 import com.estudo.hibernate.works.listener.GerarNotaFiscalListener;
 
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -38,7 +46,7 @@ import lombok.Setter;
 @EntityListeners({ GerarNotaFiscalListener.class, GenericoListener.class })
 @Entity
 @Table(name = "pedido")
-public class Pedido extends EntidadeBaseInteger {
+public class Pedido extends EntidadeBaseInteger implements PersistentAttributeInterceptable {
 
 	@NotNull
 	@ManyToOne(optional = false)
@@ -61,7 +69,9 @@ public class Pedido extends EntidadeBaseInteger {
 	@Column(name = "data_conclusao")
 	private LocalDateTime dataConclusao;
 
-	@OneToOne(mappedBy = "pedido")
+	
+	@LazyToOne(LazyToOneOption.NO_PROXY)
+	@OneToOne(mappedBy = "pedido", fetch = FetchType.LAZY)
 	private NotaFiscal notaFiscal;
 
 	@NotNull
@@ -74,11 +84,63 @@ public class Pedido extends EntidadeBaseInteger {
 	@Enumerated(EnumType.STRING)
 	private StatusPedido status;
 
-	@OneToOne(mappedBy = "pedido")
+	@LazyToOne(LazyToOneOption.NO_PROXY)
+	@OneToOne(mappedBy = "pedido", fetch = FetchType.LAZY)
 	private Pagamento pagamento;
 
 	@Embedded
 	private EnderecoEntregaPedido enderecoEntrega;
+
+	public NotaFiscal getNotaFiscal() {
+		if (this.persistentAttributeInterceptor != null) {
+			return (NotaFiscal) persistentAttributeInterceptor.readObject(this, "notaFiscal", this.notaFiscal);
+		}
+
+		return this.notaFiscal;
+	}
+
+	public void setNotaFiscal(NotaFiscal notaFiscal) {
+		if (this.persistentAttributeInterceptor != null) {
+			this.notaFiscal = (NotaFiscal) persistentAttributeInterceptor.writeObject(this, "notaFiscal",
+					this.notaFiscal, notaFiscal);
+
+		} else {
+			this.notaFiscal = notaFiscal;
+		}
+	}
+
+	public Pagamento getPagamento() {
+		if (this.persistentAttributeInterceptor != null) {
+			return (Pagamento) persistentAttributeInterceptor.readObject(this, "Pagamento", this.pagamento);
+		}
+		return this.pagamento;
+	}
+
+	public void setPagamento(Pagamento pagamento) {
+		if (this.persistentAttributeInterceptor != null) {
+			this.pagamento = (Pagamento) persistentAttributeInterceptor.writeObject(this, "pagamento", this.pagamento,
+					pagamento);
+
+		} else {
+			this.pagamento = pagamento;
+		}
+	}
+
+	@Getter(AccessLevel.NONE)
+	@Setter(AccessLevel.NONE)
+	@Transient
+	private PersistentAttributeInterceptor persistentAttributeInterceptor;
+
+	@Override
+	public PersistentAttributeInterceptor $$_hibernate_getInterceptor() {
+		return this.persistentAttributeInterceptor;
+	}
+
+	@Override
+	public void $$_hibernate_setInterceptor(PersistentAttributeInterceptor persistentAttributeInterceptor) {
+
+		this.persistentAttributeInterceptor = persistentAttributeInterceptor;
+	}
 
 	public boolean isPago() {
 		return StatusPedido.PAGO.equals(status);
@@ -126,4 +188,5 @@ public class Pedido extends EntidadeBaseInteger {
 	public void aoCarregar() {
 		System.out.println("Apos carregar o Pedido");
 	}
+
 }
