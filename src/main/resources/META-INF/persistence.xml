@@ -19,6 +19,8 @@
             
             <property name="hibernate.hikari.maximumPoolSize" value="16" /> 
             <property name="hibernate.connection.provider_class" value="org.hibernate.hikaricp.internal.HikariCPConnectionProvider" />
+            
+            <property name="javax.persistence.sharedCache.mode" value="ALL"/>
 
 		<!-- comentarios gerando arquivos não recomendado em produção ###tirar###-->
             <property name="javax.persistence.schema-generation.database.action" 
