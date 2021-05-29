@@ -3,6 +3,7 @@ package com.estudohibernateworkstest.cache;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.sound.midi.Soundbank;
 
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
@@ -25,6 +26,20 @@ public class CacheTest {
 		entityManagerFactory.close();
 	}
 
+	@Test
+	public void adicionarPedidosNoCache() {
+		EntityManager entityManager1 = entityManagerFactory.createEntityManager();
+		EntityManager entityManager2 = entityManagerFactory.createEntityManager();
+	
+		System.out.println("Buscando a partir da instancia 1: ");
+		entityManager1
+			.createQuery("select p from Pedido p ", Pedido.class)
+			.getResultList();
+		
+		System.out.println("Buscando a partir da instancia 2:");
+		entityManager2.find(Pedido.class, 1);
+	}
+	
 	@Test
 	public void buscarDoCache() {
 		EntityManager entityManager1 = entityManagerFactory.createEntityManager();
