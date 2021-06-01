@@ -1,7 +1,5 @@
 package com.estudohibernateworkstest.cache;
 
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.log;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -36,38 +34,38 @@ public class CacheTest {
 	public static void esperar(int segundos) {
 		try {
 			Thread.sleep(segundos * 1000);
-			
+
 		} catch (InterruptedException e) {
 
 		}
 	}
+
 	private void log(Object obj) {
 
-		System.out.println("[LOG "+ System.currentTimeMillis() + "] "+ obj);
-	} 
-	
+		System.out.println("[LOG " + System.currentTimeMillis() + "] " + obj);
+	}
+
 	@Test
 	public void ehcache() {
 		Cache cache = entityManagerFactory.getCache();
-		
+
 		EntityManager entityManager1 = entityManagerFactory.createEntityManager();
 		EntityManager entityManager2 = entityManagerFactory.createEntityManager();
-		
-		
+
 		log("Buscando e incluindo no cache...");
-		entityManager1
-			.createQuery("select p from Pedido p" , Pedido.class)
-			.getResultList();
+		entityManager1.createQuery("select p from Pedido p", Pedido.class).getResultList();
 		log("------");
-		
+
 		esperar(1);
 		Assert.assertTrue(cache.contains(Pedido.class, 2));
 		entityManager2.find(Pedido.class, 2);
-		
+
 		esperar(3);
 		Assert.assertFalse(cache.contains(Pedido.class, 2));
+
+		entityManager1.close();
+		entityManager2.close();
 	}
-	
 
 	@Test
 	public void controleCacheDinamiamente() {
@@ -96,6 +94,10 @@ public class CacheTest {
 		entityManager3.createQuery("select p from Pedido p", Pedido.class)
 				// .setHint("javax.persistence.cache.retrieveMode", CacheRetrieveMode.BYPASS)
 				.getResultList();
+
+		entityManager1.close();
+		entityManager2.close();
+		entityManager3.close();
 	}
 
 	@Test
@@ -108,6 +110,7 @@ public class CacheTest {
 		entityManager1.createQuery("select p from Pedido p", Pedido.class).getResultList();
 
 		Assert.assertTrue(cache.contains(Pedido.class, 1));
+		entityManager1.close();
 	}
 
 	@Test
@@ -121,6 +124,8 @@ public class CacheTest {
 
 		Assert.assertTrue(cache.contains(Pedido.class, 1));
 		Assert.assertTrue(cache.contains(Pedido.class, 2));
+
+		entityManager1.close();
 	}
 
 	@Test
@@ -141,6 +146,9 @@ public class CacheTest {
 		entityManager2.find(Pedido.class, 1);
 		entityManager2.find(Pedido.class, 2);
 
+		entityManager1.close();
+		entityManager2.close();
+
 	}
 
 	@Test
@@ -153,6 +161,9 @@ public class CacheTest {
 
 		System.out.println("Buscando a partir da instancia 2:");
 		entityManager2.find(Pedido.class, 1);
+
+		entityManager1.close();
+		entityManager2.close();
 	}
 
 	@Test
@@ -165,5 +176,9 @@ public class CacheTest {
 
 		System.out.println("Buscando a partir da instancia 1");
 		entityManager2.find(Pedido.class, 1);
+
+		entityManager1.close();
+		entityManager2.close();
 	}
+
 }
