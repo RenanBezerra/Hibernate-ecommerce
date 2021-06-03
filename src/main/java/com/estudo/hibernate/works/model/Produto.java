@@ -29,6 +29,7 @@ import javax.persistence.SqlResultSetMapping;
 import javax.persistence.SqlResultSetMappings;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
+import javax.persistence.Version;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.PastOrPresent;
@@ -87,6 +88,7 @@ import lombok.Setter;
 		@UniqueConstraint(name = "unq_nome", columnNames = { "nome" }) }, indexes = {
 				@Index(name = "idx_nome", columnList = "nome") })
 public class Produto extends EntidadeBaseInteger {
+	
 
 	@PastOrPresent
 	@NotNull

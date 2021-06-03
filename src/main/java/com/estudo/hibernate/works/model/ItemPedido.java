@@ -13,6 +13,7 @@ import javax.persistence.MapsId;
 import javax.persistence.SqlResultSetMapping;
 import javax.persistence.SqlResultSetMappings;
 import javax.persistence.Table;
+import javax.persistence.Version;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 
@@ -38,6 +39,9 @@ public class ItemPedido {
 	@EmbeddedId
 	private ItemPedidoId id;
 
+	@Version
+	private Integer versao;
+	
 	@NotNull
 	@MapsId("pedidoId")
 	@ManyToOne(optional = false)
