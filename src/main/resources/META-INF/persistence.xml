@@ -51,11 +51,11 @@
 			 
             <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL8Dialect" />
 
-			<property name="hibernate.multiTenancy" value="SCHEMA"/>
+			<property name="hibernate.multiTenancy" value="DATABASE"/>
 			 <property name="hibernate.tenant_identifier_resolver" 
 			 value="com.estudo.hibernate.works.tenant.EcmCurrentTenantIdentifierResolver"/>
 			 <property name="hibernate.multi_tenant_connection_provider" 
-			 value="com.estudo.hibernate.works.tenant.EcmSchemaMultiTenantConnectionProvider"/>
+			 value="com.estudo.hibernate.works.tenant.EcmMachineMultiTenantConnectionProvider"/>
 			 
 
 			 
