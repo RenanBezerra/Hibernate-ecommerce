@@ -1,8 +1,5 @@
 package com.estudohibernateworkstest.jpql;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 import java.util.List;
 
 import javax.persistence.TypedQuery;
