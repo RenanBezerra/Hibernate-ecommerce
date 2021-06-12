@@ -1,4 +1,4 @@
-<!-- <?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <config xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
         xmlns='http://www.ehcache.org/v3'
         xmlns:jsr107='http://www.ehcache.org/v3/jsr107'
@@ -10,7 +10,7 @@
         <jsr107:defaults default-template="padrao" />
     </service>
 
-    <cache alias="com.estudo.hibernate.works.model.Pedido" uses-template="padrao">
+    <cache alias="com.algaworks.ecommerce.model.Pedido" uses-template="padrao">
         <expiry>
             <tti unit="seconds">2</tti>
         </expiry>
@@ -26,4 +26,4 @@
 
         <heap unit="entries">1000</heap>
     </cache-template>
-</config> -->
+</config>

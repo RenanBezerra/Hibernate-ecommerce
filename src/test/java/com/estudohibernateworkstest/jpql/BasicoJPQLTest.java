@@ -60,7 +60,7 @@ public class BasicoJPQLTest extends EntityManagerTest {
 
 		Assert.assertTrue(lista.get(0).length == 2);
 
-		lista.forEach(arr -> System.out.println(arr[0] + ", " + arr[1]));
+		lista.forEach(arr -> System.out.println(arr[0] + ", resultado " + arr[1]));
 	}
 
 	@Test

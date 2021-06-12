@@ -14,12 +14,16 @@
     	
         <properties>
             <property name="javax.persistence.jdbc.url"
-                      value="jdbc:mysql://localhost/hibernateworks_ecommerce?createDatabaseIfNotExist=true&amp;useTimezone=true&amp;serverTimezone=UTC" />
-            <property name="javax.persistence.jdbc.user" value="root" />
-            <property name="javax.persistence.jdbc.password" value="ProgramadorPleno10" />
-            <property name="javax.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver" />
-            
+            			value="jdbc:postgresql://localhost/hibernateworks_ecommerce"/>
+            <property name="javax.persistence.jdbc.user" value="postgres" />
+            <property name="javax.persistence.jdbc.password" value="1234" />
+            <property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver" />
            
+    <!--          <property name="javax.persistence.jdbc.url" 
+                       value="jdbc:mysql://localhost/hibernateworks_ecommerce?createDatabaseIfNotExist=true&amp;useTimezone=true&amp;serverTimezone=UTC" /> 
+          <property name="javax.persistence.jdbc.user" value="root" />
+            <property name="javax.persistence.jdbc.password" value="ProgramadorPleno10" />
+            <property name="javax.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver" /> -->
             
             
 
@@ -49,9 +53,10 @@
 		    <property name="javax.persistence.schema-generation.scripts.drop-target"
 			 value="C:/Users/rebg/test/script-remocao-exportado.sql"/>
 			 
-            <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL8Dialect" />
+			 <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQL10Dialect" />
+         <!--    <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL8Dialect" /> -->
 
-			<property name="hibernate.multiTenancy" value="DATABASE"/>
+			<property name="hibernate.multiTenancy" value="NONE"/>
 			 <property name="hibernate.tenant_identifier_resolver" 
 			 value="com.estudo.hibernate.works.tenant.EcmCurrentTenantIdentifierResolver"/>
 			 <property name="hibernate.multi_tenant_connection_provider" 

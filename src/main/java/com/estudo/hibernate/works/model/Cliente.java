@@ -34,18 +34,13 @@ import lombok.Setter;
 
 @Getter
 @Setter
-@NamedStoredProcedureQuery(name = "compraram_acima_media", procedureName = "compraram_acima_media",
-		parameters = {
-				@StoredProcedureParameter(name = "ano", type = Integer.class, mode = ParameterMode.IN)
-		},
-		resultClasses = Cliente.class
-		)
-@SecondaryTable(name = "cliente_detalhe", pkJoinColumns = @PrimaryKeyJoinColumn(name = "cliente_id"),
-			foreignKey = @ForeignKey(name = "fk_cliente_detalhe_cliente"))
+@NamedStoredProcedureQuery(name = "compraram_acima_media", procedureName = "compraram_acima_media", parameters = {
+		@StoredProcedureParameter(name = "ano", type = Integer.class, mode = ParameterMode.IN) }, resultClasses = Cliente.class)
+@SecondaryTable(name = "cliente_detalhe", pkJoinColumns = @PrimaryKeyJoinColumn(name = "cliente_id"), foreignKey = @ForeignKey(name = "fk_cliente_detalhe_cliente"))
 @Entity
 @Table(name = "cliente", uniqueConstraints = {
-		@UniqueConstraint(name = "unq_cpf", columnNames = { "cpf" }) }, indexes = {
-				@Index(name = "idx_nome", columnList = "nome") })
+		@UniqueConstraint(name = "unq_cliente_cpf", columnNames = { "cpf" }) }, indexes = {
+				@Index(name = "idx_cliente_nome", columnList = "nome") })
 public class Cliente extends EntidadeBaseInteger {
 
 	@NotBlank
@@ -53,13 +48,12 @@ public class Cliente extends EntidadeBaseInteger {
 	private String nome;
 
 	@NotNull
-	@Pattern(regexp = "(^\\d{3}\\x2E\\d{3}\\x2E\\d{3}\\x20\\d{2}$)")
+	@Pattern(regexp = "(^\\d{3}\\x2E\\d{3}\\x2E\\d{3}\\x2D\\d{2}$)")
 	@Column(length = 14, nullable = false)
 	private String cpf;
 
 	@ElementCollection
-	@CollectionTable(name = "cliente_contato", joinColumns = @JoinColumn(name = "cliente_id",nullable = false,
-				foreignKey = @ForeignKey(name = "fk_cliente_contato_cliente")))
+	@CollectionTable(name = "cliente_contato", joinColumns = @JoinColumn(name = "cliente_id", nullable = false, foreignKey = @ForeignKey(name = "fk_cliente_contato_cliente")))
 	@MapKeyColumn(name = "tipo")
 	@Column(name = "descricao")
 	private Map<String, String> contatos;
@@ -81,13 +75,11 @@ public class Cliente extends EntidadeBaseInteger {
 
 	@PostLoad
 	public void configurarPrimeiroNome() {
-		if (nome != null && !nome.isEmpty()) {
+		if (nome != null && !nome.isBlank()) {
 			int index = nome.indexOf(" ");
 			if (index > -1) {
 				primeiroNome = nome.substring(0, index);
 			}
-
 		}
 	}
-
 }

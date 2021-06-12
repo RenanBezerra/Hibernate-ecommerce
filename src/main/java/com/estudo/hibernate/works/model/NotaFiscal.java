@@ -16,6 +16,8 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.PastOrPresent;
 
+import org.hibernate.annotations.Type;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -25,19 +27,19 @@ import lombok.Setter;
 @Table(name = "nota_fiscal")
 public class NotaFiscal extends EntidadeBaseInteger {
 
-	// @JoinTable(name = "pedido_nota_fiscal", joinColumns = @JoinColumn(name =
-	// "nota_fiscal_id", unique = true),
-	// inverseJoinColumns = @JoinColumn(name = "pedido_id", unique = true))
-	
 	@NotNull
 	@MapsId
 	@OneToOne(optional = false)
 	@JoinColumn(name = "pedido_id", nullable = false, foreignKey = @ForeignKey(name = "fk_nota_fiscal_pedido"))
+//    @JoinTable(name = "pedido_nota_fiscal",
+//            joinColumns = @JoinColumn(name = "nota_fiscal_id", unique = true),
+//            inverseJoinColumns = @JoinColumn(name = "pedido_id", unique = true))
 	private Pedido pedido;
 
 	@NotEmpty
 	@Column(nullable = false)
 	@Lob
+	@Type(type = "org.hibernate.type.BinaryType")
 	private byte[] xml;
 
 	@PastOrPresent
@@ -45,5 +47,4 @@ public class NotaFiscal extends EntidadeBaseInteger {
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "data_emissao", nullable = false)
 	private Date dataEmissao;
-
 }
