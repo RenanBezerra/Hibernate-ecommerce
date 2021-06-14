@@ -8,22 +8,24 @@
     	<mapping-file>META-INF/consultas/produto.xml</mapping-file>
     	<mapping-file>META-INF/consultas/categoria.xml</mapping-file>
     	
-    	<shared-cache-mode>ALL</shared-cache-mode>
-    	
+    	<!-- <shared-cache-mode>ALL</shared-cache-mode>
+    	 -->
+    	 <exclude-unlisted-classes>false</exclude-unlisted-classes>
+    	 
     	<validation-mode>CALLBACK</validation-mode>
     	
         <properties>
-            <property name="javax.persistence.jdbc.url"
+            <!-- <property name="javax.persistence.jdbc.url"
             			value="jdbc:postgresql://localhost/hibernateworks_ecommerce"/>
             <property name="javax.persistence.jdbc.user" value="postgres" />
             <property name="javax.persistence.jdbc.password" value="1234" />
-            <property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver" />
+            <property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver" /> -->
            
-    <!--          <property name="javax.persistence.jdbc.url" 
+              <property name="javax.persistence.jdbc.url" 
                        value="jdbc:mysql://localhost/hibernateworks_ecommerce?createDatabaseIfNotExist=true&amp;useTimezone=true&amp;serverTimezone=UTC" /> 
           <property name="javax.persistence.jdbc.user" value="root" />
             <property name="javax.persistence.jdbc.password" value="ProgramadorPleno10" />
-            <property name="javax.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver" /> -->
+            <property name="javax.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver" /> 
             
             
 
@@ -42,6 +44,8 @@
 			<property name="javax.persistence.schema-generation.drop-script-source"
 			 value="META-INF/banco-de-dados/script-remocao.sql"/>
 
+		
+			<property name="eclipselink.logging.level" value="FINE"/>
 
 
             <property name="javax.persistence.sql-load-script-source" value="META-INF/banco-de-dados/dados-iniciais.sql"/>
@@ -53,8 +57,8 @@
 		    <property name="javax.persistence.schema-generation.scripts.drop-target"
 			 value="C:/Users/rebg/test/script-remocao-exportado.sql"/>
 			 
-			 <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQL10Dialect" />
-         <!--    <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL8Dialect" /> -->
+			<!--  <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQL10Dialect" />
+            <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL8Dialect" />
 
 			<property name="hibernate.multiTenancy" value="NONE"/>
 			 <property name="hibernate.tenant_identifier_resolver" 
@@ -75,7 +79,7 @@
             <property name="hibernate.javax.cache.uri" value="META-INF/ehcache.xml"/>
             
             <property name="hibernate.show_sql" value="true" />
-            <property name="hibernate.format_sql" value="false" />
+            <property name="hibernate.format_sql" value="false" /> -->
         </properties>
     </persistence-unit>
     

@@ -7,7 +7,6 @@ import com.estudo.hibernate.works.model.converter.BooleanToSiimNaoConverter;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
@@ -79,7 +78,7 @@ public class Produto extends EntidadeBaseInteger {
     private BigDecimal preco;
 
     @Lob
-    @Type(type="org.hibernate.type.BinaryType")
+   // @Type(type="org.hibernate.type.BinaryType")
     private byte[] foto;
 
     @Convert(converter = BooleanToSiimNaoConverter.class)

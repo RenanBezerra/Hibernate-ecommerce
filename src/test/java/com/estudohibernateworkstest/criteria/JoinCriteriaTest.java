@@ -9,7 +9,6 @@ import javax.persistence.criteria.Join;
 import javax.persistence.criteria.JoinType;
 import javax.persistence.criteria.Root;
 
-import org.hibernate.engine.transaction.spi.JoinStatus;
 import org.junit.Assert;
 import org.junit.Test;
 

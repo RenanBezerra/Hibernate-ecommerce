@@ -7,12 +7,14 @@ import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.ForeignKey;
+import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.MapsId;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Version;
 import javax.validation.constraints.NotNull;
 
 import lombok.Getter;
@@ -24,8 +26,14 @@ import lombok.Setter;
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @Entity
 @Table(name = "pagamento")
-public abstract class Pagamento extends EntidadeBaseInteger {
+public abstract class Pagamento  {
 
+	@Id
+	private Integer id;
+	
+	@Version
+	private Integer versao;
+	
 	@NotNull
 	@MapsId
 	@OneToOne(optional = false)

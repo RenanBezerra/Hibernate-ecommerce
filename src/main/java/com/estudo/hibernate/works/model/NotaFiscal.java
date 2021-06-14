@@ -5,6 +5,7 @@ import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ForeignKey;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.MapsId;
@@ -12,11 +13,11 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Version;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.PastOrPresent;
 
-import org.hibernate.annotations.Type;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -25,8 +26,14 @@ import lombok.Setter;
 @Setter
 @Entity
 @Table(name = "nota_fiscal")
-public class NotaFiscal extends EntidadeBaseInteger {
+public class NotaFiscal {
 
+	@Id
+	private Integer id;
+	
+	@Version
+	private Integer versao;
+	
 	@NotNull
 	@MapsId
 	@OneToOne(optional = false)
@@ -39,7 +46,7 @@ public class NotaFiscal extends EntidadeBaseInteger {
 	@NotEmpty
 	@Column(nullable = false)
 	@Lob
-	@Type(type = "org.hibernate.type.BinaryType")
+	//@Type(type = "org.hibernate.type.BinaryType")
 	private byte[] xml;
 
 	@PastOrPresent
